@@ -1,0 +1,94 @@
+# =========================
+# Android / Gradle Build
+# =========================
+*.apk
+*.ap_
+*.aab
+*.aar
+*.dex
+*.class
+*.jar
+
+# Gradle
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Kotlin
+*.kotlin_module
+
+# =========================
+# Android Studio / IntelliJ
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Keep shared IDE configs if needed (optional)
+#.idea/codeStyles/
+#.idea/inspectionProfiles/
+
+# Exclude user-specific IDE files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# =========================
+# Local Config / Secrets
+# =========================
+local.properties
+secrets.properties
+
+# Keystore & sensitive files
+*.jks
+*.keystore
+*.pem
+*.key
+
+# Firebase / Google Services (optional)
+google-services.json
+*.env
+
+# =========================
+# NDK / C++
+# =========================
+.externalNativeBuild/
+.cxx/
+
+# =========================
+# Android Generated
+# =========================
+/captures/
+output.json
+
+# Build intermediates (important for CI cleanliness)
+**/build/tmp/
+**/build/intermediates/
+**/build/generated/
+**/build/outputs/
+
+# =========================
+# Logs & Temp
+# =========================
+*.log
+*.lock
+*.tmp
+
+# =========================
+# OS-specific files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# =========================
+# Misc
+# =========================
+*.swp
+*~
