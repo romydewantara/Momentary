@@ -8,5 +8,6 @@ sealed class Screen(val route: String) {
     data object Detail : Screen("detail/{id}") {
         fun createRoute(id: String) = route.replace("{id}", id)
     }
+
     data object AddStory : Screen("add_story")
 }
