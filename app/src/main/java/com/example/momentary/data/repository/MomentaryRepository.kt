@@ -1,10 +1,13 @@
 package com.example.momentary.data.repository
 
+import com.example.momentary.R
 import com.example.momentary.data.local.SessionPreferences
 import com.example.momentary.data.model.AuthResponse
 import com.example.momentary.data.model.BaseResponse
 import com.example.momentary.data.model.StoryResponse
 import com.example.momentary.data.remote.ApiService
+import com.example.momentary.ui.common.ResultState
+import com.example.momentary.ui.common.UiText
 import kotlinx.coroutines.flow.first
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -15,12 +18,37 @@ class MomentaryRepository @Inject constructor(
     private val prefs: SessionPreferences
 ) {
 
-    suspend fun login(email: String, password: String): AuthResponse {
-        val response = api.login(email = email, password = password)
-        response.loginResult?.token?.let {
-            prefs.saveToken(it)
+    suspend fun login(email: String, password: String): ResultState<AuthResponse> {
+        return try {
+            val response = api.login(email = email, password = password)
+            response.loginResult?.token?.let {
+                prefs.saveToken(it)
+            }
+            ResultState.Success(response)
+
+        } catch (e: retrofit2.HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+
+            val message = when {
+                errorBody?.contains("must be a valid email", true) == true ->
+                    UiText.StringResource(R.string.error_must_valid_email)
+
+                errorBody?.contains("User not found", true) == true ->
+                    UiText.StringResource(R.string.error_user_not_found)
+
+                errorBody?.contains("Invalid password", true) == true ->
+                    UiText.StringResource(R.string.error_invalid_password)
+
+                else ->
+                    UiText.StringResource(R.string.error_unknown)
+            }
+
+            ResultState.Error(message)
+        } catch (_: Exception) {
+            ResultState.Error(
+                UiText.StringResource(R.string.error_network)
+            )
         }
-        return response
     }
 
     suspend fun register(email: String, name: String, password: String): BaseResponse {

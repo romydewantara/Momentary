@@ -15,7 +15,6 @@ ksp = "2.0.21-1.0.25"
 kotlin = "2.0.21"
 lifecycleRuntimeKtx = "2.10.0"
 loggingInterceptor = "4.12.0"
-material = "1.10.6"
 materialIconsCore = "1.7.8"
 navigationCompose = "2.9.7"
 retrofit = "3.0.0"
@@ -27,7 +26,6 @@ androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.r
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCore" }
-androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

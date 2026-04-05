@@ -1,3 +1,68 @@
 <resources>
     <string name="app_name">Momentary</string>
+
+    <!-- Login Screen -->
+    <string name="login_form_email">Email</string>
+    <string name="login_form_password">Password</string>
+    <string name="login_button_login">Sign In</string>
+    <string name="login_register_text">Don’t have an account?</string>
+    <string name="login_register_text_link">Sign up now</string>
+
+    <!-- Register Screen -->
+    <string name="register_label_name">Name</string>
+    <string name="register_label_email">Email</string>
+    <string name="register_label_password">Password</string>
+    <string name="register_button_register">Sign Up</string>
+    <string name="register_login_text">Already have an account?</string>
+    <string name="register_login_text_link">Sign In</string>
+    <string name="register_email_name">Name must be at least 3 characters</string>
+
+    <!-- Drawer Screen -->
+    <string name="drawer_title" translatable="true">Home</string>
+    <string name="drawer_change_language">Change language</string>
+    <string name="drawer_logout">Log out</string>
+
+    <!-- Add Story Screen -->
+    <string name="add_story_title">New Story</string>
+    <string name="add_story_add_image">Tap here to add an image</string>
+    <string name="add_story_add_image_select_source">Select Image Source</string>
+    <string name="add_story_add_image_source_gallery">Gallery</string>
+    <string name="add_story_add_image_source_camera">Camera</string>
+    <string name="add_story_description_hint">Share a little something here…</string>
+    <string name="add_story_add_location">Add location</string>
+    <string name="add_story_button_upload">Upload</string>
+    <string name="add_story_button_uploading">Uploading</string>
+
+    <!-- Detail Story Screen -->
+    <string name="detail_story_title">Detail</string>
+
+    <!-- Time Formatter -->
+    <string name="time_format_now">now</string>
+    <string name="time_format_minutes_ago">%1$d minutes ago</string>
+    <string name="time_format_hours_ago">%1$d hours ago</string>
+    <string name="time_format_days_ago">%1$d days ago</string>
+
+    <!-- Common -->
+    <string name="compose_empty_story">No stories yet</string>
+    <string name="compose_empty_story_description">Be the first to share your moment!</string>
+
+    <!-- Error Message -->
+    <string name="error_email_invalid">Your email format is invalid</string>
+    <string name="error_password">Password must be at least 8 characters</string>
+    <string name="error_name">Name must be at least 3 characters</string>
+    <string name="error_must_valid_email">The email entered must be a valid email address.</string>
+    <string name="error_user_not_found">User not found</string>
+    <string name="error_invalid_password">Invalid password</string>
+    <string name="error_unknown">Something went wrong, please try again later</string>
+    <string name="error_story_load">Failed to load stories</string>
+    <string name="error_load_story_detail">Failed to load story details</string>
+    <string name="error_upload_new_story">Failed to upload story</string>
+    <string name="error_network">Connection failed, check your network and try again</string>
+
+    <!-- Content Description -->
+    <string name="cd_clear_email">Clear email</string>
+    <string name="cd_toggle_password">Toggle password visibility</string>
+
+    <!-- StackView Widget -->
+    <string name="stack_view_image_desc">image item</string>
 </resources>
