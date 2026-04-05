@@ -9,7 +9,6 @@ import com.example.momentary.ui.common.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repository: MomentaryRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginUiState())
     val state: StateFlow<LoginUiState> = _state
@@ -72,7 +71,8 @@ class LoginViewModel @Inject constructor(
 
     private fun validateEmail(email: String): UiText? {
         return if (email.isNotEmpty() &&
-            !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        ) {
             UiText.StringResource(R.string.error_email_invalid)
         } else null
     }
