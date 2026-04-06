@@ -24,7 +24,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -37,16 +36,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
+import com.example.momentary.ui.theme.Tertiary
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    backStackEntry: NavBackStackEntry,
     onLoginSuccess: () -> Unit,
     navigateToRegister: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
@@ -58,6 +64,20 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
 
     var passwordVisible by remember { mutableStateOf(false) }
+
+    val savedStateHandle = backStackEntry.savedStateHandle
+
+    LaunchedEffect(Unit) {
+        savedStateHandle.getStateFlow("register_success", false)
+            .collect { success ->
+                if (success) {
+                    snackBarHostState.showSnackbar(
+                        context.getString(R.string.register_success)
+                    )
+                    savedStateHandle["register_success"] = false
+                }
+            }
+    }
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
@@ -185,14 +205,30 @@ fun LoginScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            TextButton(
-                onClick = navigateToRegister,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(stringResource(R.string.login_register_text_link))
+            val annotatedText = buildAnnotatedString {
+                append(stringResource(R.string.login_register_text))
+                append(" ")
+                pushLink(
+                    LinkAnnotation.Clickable(
+                        tag = stringResource(R.string.tag_register),
+                        styles = TextLinkStyles(
+                            style = SpanStyle(
+                                color = Tertiary
+                            )
+                        ),
+                        linkInteractionListener = { navigateToRegister() }
+                    )
+                )
+                append(stringResource(R.string.login_register_text_link))
+                pop()
             }
+
+            Text(
+                text = annotatedText,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
     }
 }

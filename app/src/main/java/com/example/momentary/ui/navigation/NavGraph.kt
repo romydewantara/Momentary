@@ -42,8 +42,9 @@ fun NavGraph(
                 }
             }
 
-            composable(Screen.Login.route) {
+            composable(Screen.Login.route) { backStackEntry ->
                 LoginScreen(
+                    backStackEntry = backStackEntry,
                     onLoginSuccess = {
                         navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Login.route) { inclusive = true }
@@ -59,6 +60,10 @@ fun NavGraph(
             composable(Screen.Register.route) {
                 RegisterScreen(
                     onRegisterSuccess = {
+                        navController.previousBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("register_success", true)
+
                         navController.popBackStack()
                     }
                 )

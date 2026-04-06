@@ -6,16 +6,16 @@
     <string name="login_form_password">Password</string>
     <string name="login_button_login">Sign In</string>
     <string name="login_register_text">Don’t have an account?</string>
-    <string name="login_register_text_link">Sign up now</string>
+    <string name="login_register_text_link">Register here</string>
 
     <!-- Register Screen -->
     <string name="register_label_name">Name</string>
     <string name="register_label_email">Email</string>
     <string name="register_label_password">Password</string>
     <string name="register_button_register">Sign Up</string>
-    <string name="register_login_text">Already have an account?</string>
     <string name="register_login_text_link">Sign In</string>
     <string name="register_email_name">Name must be at least 3 characters</string>
+    <string name="register_success">Registration successful. Please log in to continue.</string>
 
     <!-- Drawer Screen -->
     <string name="drawer_title" translatable="true">Home</string>
@@ -50,6 +50,7 @@
     <string name="error_email_invalid">Your email format is invalid</string>
     <string name="error_password">Password must be at least 8 characters</string>
     <string name="error_name">Name must be at least 3 characters</string>
+    <string name="error_email_already_taken">Looks like this email is already taken. Try another one or sign in instead.</string>
     <string name="error_must_valid_email">The email entered must be a valid email address.</string>
     <string name="error_user_not_found">User not found</string>
     <string name="error_invalid_password">Invalid password</string>
@@ -59,9 +60,10 @@
     <string name="error_upload_new_story">Failed to upload story</string>
     <string name="error_network">Connection failed, check your network and try again</string>
 
-    <!-- Content Description -->
+    <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="tag_register">register</string>
 
     <!-- StackView Widget -->
     <string name="stack_view_image_desc">image item</string>

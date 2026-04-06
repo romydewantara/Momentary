@@ -51,8 +51,43 @@ class MomentaryRepository @Inject constructor(
         }
     }
 
-    suspend fun register(email: String, name: String, password: String): BaseResponse {
-        return api.register(email = email, name = name, password = password)
+    suspend fun register(
+        email: String,
+        name: String,
+        password: String
+    ): ResultState<BaseResponse> {
+        return try {
+            val response = api.register(
+                email = email,
+                name = name,
+                password = password
+            )
+            ResultState.Success(response)
+
+        } catch (e: retrofit2.HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+
+            val message = when {
+                errorBody?.contains("Email is already taken", true) == true ->
+                    UiText.StringResource(R.string.error_email_already_taken)
+
+                errorBody?.contains("must be a valid email", true) == true ->
+                    UiText.StringResource(R.string.error_must_valid_email)
+
+                errorBody?.contains("at least 8 characters", true) == true ->
+                    UiText.StringResource(R.string.error_password)
+
+                else ->
+                    UiText.StringResource(R.string.error_unknown)
+            }
+
+            ResultState.Error(message)
+
+        } catch (_: Exception) {
+            ResultState.Error(
+                UiText.StringResource(R.string.error_network)
+            )
+        }
     }
 
     suspend fun getStories(): StoryResponse {
