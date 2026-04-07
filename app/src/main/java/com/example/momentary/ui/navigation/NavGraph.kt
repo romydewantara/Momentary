@@ -1,14 +1,12 @@
 package com.example.momentary.ui.navigation
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import com.example.momentary.data.model.Story
 import com.example.momentary.ui.screen.addstory.AddStoryScreen
 import com.example.momentary.ui.screen.auth.login.LoginScreen
 import com.example.momentary.ui.screen.auth.register.RegisterScreen
@@ -72,15 +70,19 @@ fun NavGraph(
             composable(Screen.Home.route) {
                 HomeScreen(
                     sharedTransitionScope = sharedScope,
-                    animatedVisibilityScope = this@composable as AnimatedVisibilityScope,
+                    animatedVisibilityScope = this,
                     onLogout = {
                         navController.navigate(Screen.Login.route) {
                             popUpTo(Screen.Home.route) { inclusive = true }
                             launchSingleTop = true
                         }
                     },
-                    onNavigateToDetail = { id ->
-                        navController.navigate(Screen.Detail.createRoute(id))
+                    onNavigateToDetail = { story ->
+                        navController.currentBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("story", story)
+
+                        navController.navigate(Screen.Detail.route)
                     },
                     onNavigateToAddStory = {
                         navController.navigate(Screen.AddStory.route)
@@ -88,21 +90,20 @@ fun NavGraph(
                 )
             }
 
-            composable(
-                Screen.Detail.route,
-                arguments = listOf(
-                    navArgument("storyId") { type = NavType.StringType }
-                )
-            ) { backstackEntry ->
-                val storyId = backstackEntry.arguments?.getString("storyId") ?: ""
-                DetailScreen(
-                    sharedTransitionScope = sharedScope,
-                    storyId = storyId,
-                    animatedVisibilityScope = this@composable as AnimatedVisibilityScope,
-                    onBack = {
-                        navController.popBackStack()
-                    }
-                )
+            composable(Screen.Detail.route) {
+                val story = navController
+                    .previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.get<Story>("story")
+
+                if (story != null) {
+                    DetailScreen(
+                        sharedTransitionScope = sharedScope,
+                        animatedVisibilityScope = this,
+                        story = story,
+                        onBack = { navController.popBackStack() }
+                    )
+                }
             }
 
             composable(Screen.AddStory.route) {

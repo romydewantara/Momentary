@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.momentary.R
+import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.CustomSnackBar
 import com.example.momentary.ui.screen.home.component.EmptyState
 import com.example.momentary.ui.screen.home.component.ErrorState
@@ -45,7 +46,7 @@ fun HomeScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onLogout: () -> Unit,
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (Story) -> Unit,
     onNavigateToAddStory: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -133,10 +134,15 @@ fun HomeScreen(
 
                         else -> {
                             LazyColumn {
-                                items(stories) { story ->
+                                items(
+                                    items = stories,
+                                    key = { it.id }
+                                ) { story ->
                                     StoryItem(
                                         story = story,
-                                        onClick = { onNavigateToDetail(story.id) }
+                                        sharedTransitionScope = sharedTransitionScope,
+                                        animatedVisibilityScope = animatedVisibilityScope,
+                                        onClick = { onNavigateToDetail(story) }
                                     )
                                 }
                             }
