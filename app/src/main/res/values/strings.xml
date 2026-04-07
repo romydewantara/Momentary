@@ -22,6 +22,11 @@
     <string name="drawer_change_language">Change language</string>
     <string name="drawer_logout">Log out</string>
 
+    <!-- Home Screen -->
+    <string name="home_empty_story">No stories yet</string>
+    <string name="home_empty_story_description">Be the first to share your moment!</string>
+    <string name="home_pull_to_refresh_hint">Pull down to refresh</string>
+
     <!-- Add Story Screen -->
     <string name="add_story_title">New Story</string>
     <string name="add_story_add_image">Tap here to add an image</string>
@@ -41,10 +46,6 @@
     <string name="time_format_minutes_ago">%1$d minutes ago</string>
     <string name="time_format_hours_ago">%1$d hours ago</string>
     <string name="time_format_days_ago">%1$d days ago</string>
-
-    <!-- Common -->
-    <string name="compose_empty_story">No stories yet</string>
-    <string name="compose_empty_story_description">Be the first to share your moment!</string>
 
     <!-- Error Message -->
     <string name="error_email_invalid">Your email format is invalid</string>

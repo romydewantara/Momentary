@@ -4,7 +4,7 @@ import com.example.momentary.R
 import com.example.momentary.data.local.SessionPreferences
 import com.example.momentary.data.model.AuthResponse
 import com.example.momentary.data.model.BaseResponse
-import com.example.momentary.data.model.StoryResponse
+import com.example.momentary.data.model.Story
 import com.example.momentary.data.remote.ApiService
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.UiText
@@ -90,9 +90,14 @@ class MomentaryRepository @Inject constructor(
         }
     }
 
-    suspend fun getStories(): StoryResponse {
-        val token = prefs.getToken().first() ?: ""
-        return api.getStories("Bearer $token")
+    suspend fun getStories(): ResultState<List<Story>> {
+        return try {
+            val token = prefs.getToken().first() ?: ""
+            val response = api.getStories("Bearer $token")
+            ResultState.Success(response.listStory)
+        } catch (_: Exception) {
+            ResultState.Error(UiText.StringResource(R.string.error_network))
+        }
     }
 
     suspend fun addStory(
