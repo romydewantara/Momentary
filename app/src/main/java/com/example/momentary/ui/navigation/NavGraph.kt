@@ -1,11 +1,12 @@
 package com.example.momentary.ui.navigation
 
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.momentary.data.model.Story
 import com.example.momentary.ui.screen.addstory.AddStoryScreen
 import com.example.momentary.ui.screen.auth.login.LoginScreen
@@ -15,14 +16,12 @@ import com.example.momentary.ui.screen.home.HomeScreen
 import com.example.momentary.ui.screen.splash.SplashScreen
 
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun NavGraph(
     navController: NavHostController,
     startDestination: String
 ) {
     SharedTransitionLayout {
-        val sharedScope = this
 
         NavHost(
             navController = navController,
@@ -69,7 +68,7 @@ fun NavGraph(
 
             composable(Screen.Home.route) {
                 HomeScreen(
-                    sharedTransitionScope = sharedScope,
+                    sharedTransitionScope = this@SharedTransitionLayout,
                     animatedVisibilityScope = this,
                     onLogout = {
                         navController.navigate(Screen.Login.route) {
@@ -78,29 +77,29 @@ fun NavGraph(
                         }
                     },
                     onNavigateToDetail = { story ->
-                        navController.currentBackStackEntry
-                            ?.savedStateHandle
-                            ?.set("story", story)
+                        val currentEntry = navController.currentBackStackEntry
+                        currentEntry?.savedStateHandle?.set("selected_story", story)
 
-                        navController.navigate(Screen.Detail.route)
+                        navController.navigate(Screen.Detail.createRoute(story.id))
                     },
-                    onNavigateToAddStory = {
-                        navController.navigate(Screen.AddStory.route)
-                    }
+                    onNavigateToAddStory = { navController.navigate(Screen.AddStory.route) }
                 )
             }
 
-            composable(Screen.Detail.route) {
+            composable(
+                route = Screen.Detail.route,
+                arguments = listOf(navArgument("storyId") { type = NavType.StringType })
+            ) {
                 val story = navController
-                    .previousBackStackEntry
-                    ?.savedStateHandle
-                    ?.get<Story>("story")
+                    .getBackStackEntry(Screen.Home.route)
+                    .savedStateHandle
+                    .get<Story>("selected_story")
 
-                if (story != null) {
+                story?.let {
                     DetailScreen(
-                        sharedTransitionScope = sharedScope,
+                        sharedTransitionScope = this@SharedTransitionLayout,
                         animatedVisibilityScope = this,
-                        story = story,
+                        story = it,
                         onBack = { navController.popBackStack() }
                     )
                 }

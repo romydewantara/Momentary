@@ -64,6 +64,7 @@
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_story_image">Image</string>
     <string name="tag_register">register</string>
 
     <!-- StackView Widget -->

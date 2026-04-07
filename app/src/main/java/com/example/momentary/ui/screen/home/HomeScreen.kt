@@ -1,7 +1,6 @@
 package com.example.momentary.ui.screen.home
 
 import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -39,7 +38,7 @@ import com.example.momentary.ui.screen.home.component.ErrorState
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
