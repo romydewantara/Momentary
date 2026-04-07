@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.momentary.R
+import com.example.momentary.ui.common.CustomSnackBar
 
 @Composable
 fun RegisterScreen(
@@ -53,6 +54,7 @@ fun RegisterScreen(
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
+    var isErrorSnackBar by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.isSuccess) {
@@ -62,13 +64,28 @@ fun RegisterScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.event.collect { message ->
-            snackBarHostState.showSnackbar(message.asString(context))
+        viewModel.event.collect { event ->
+            isErrorSnackBar = event.isError
+
+            snackBarHostState.showSnackbar(
+                message = event.message.asString(context),
+                withDismissAction = false
+            )
         }
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackBarHostState) }
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState,
+                snackbar = { data ->
+                    CustomSnackBar(
+                        message = data.visuals.message,
+                        isError = isErrorSnackBar
+                    )
+                }
+            )
+        }
     ) { padding ->
 
         Column(

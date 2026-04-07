@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
+import com.example.momentary.ui.common.CustomSnackBar
 import com.example.momentary.ui.theme.Tertiary
 
 @Composable
@@ -64,6 +65,7 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
 
     var passwordVisible by remember { mutableStateOf(false) }
+    var isErrorSnackBar by remember { mutableStateOf(false) }
 
     val savedStateHandle = backStackEntry.savedStateHandle
 
@@ -72,8 +74,9 @@ fun LoginScreen(
             .collect { success ->
                 if (success) {
                     snackBarHostState.showSnackbar(
-                        context.getString(R.string.register_success)
+                        message = context.getString(R.string.register_success)
                     )
+                    isErrorSnackBar = false
                     savedStateHandle["register_success"] = false
                 }
             }
@@ -86,13 +89,27 @@ fun LoginScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.event.collect { message ->
-            snackBarHostState.showSnackbar(message.asString(context))
+        viewModel.event.collect { event ->
+            isErrorSnackBar = event.isError
+
+            snackBarHostState.showSnackbar(
+                message = event.message.asString(context)
+            )
         }
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackBarHostState) }
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState,
+                snackbar = { data ->
+                    CustomSnackBar(
+                        message = data.visuals.message,
+                        isError = isErrorSnackBar
+                    )
+                }
+            )
+        }
     ) { padding ->
 
         Column(

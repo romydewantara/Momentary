@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.momentary.R
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
+import com.example.momentary.ui.common.SnackBarEvent
 import com.example.momentary.ui.common.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,7 +24,7 @@ class LoginViewModel @Inject constructor(
     private val _state = MutableStateFlow(LoginUiState())
     val state: StateFlow<LoginUiState> = _state
 
-    private val _event = MutableSharedFlow<UiText>()
+    private val _event = MutableSharedFlow<SnackBarEvent>()
     val event = _event.asSharedFlow()
 
     fun onEmailChange(value: String) {
@@ -63,7 +64,7 @@ class LoginViewModel @Inject constructor(
 
                 is ResultState.Error -> {
                     _state.update { it.copy(isLoading = false) }
-                    _event.emit(result.message)
+                    _event.emit(SnackBarEvent(result.message, isError = true))
                 }
             }
         }

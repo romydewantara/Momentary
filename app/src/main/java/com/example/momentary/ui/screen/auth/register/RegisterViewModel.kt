@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.momentary.R
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
+import com.example.momentary.ui.common.SnackBarEvent
 import com.example.momentary.ui.common.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,7 +24,7 @@ class RegisterViewModel @Inject constructor(
     private val _state = MutableStateFlow(RegisterUiState())
     val state: StateFlow<RegisterUiState> = _state
 
-    private val _event = MutableSharedFlow<UiText>()
+    private val _event = MutableSharedFlow<SnackBarEvent>()
     val event = _event.asSharedFlow()
 
     fun onNameChange(value: String) {
@@ -74,7 +75,7 @@ class RegisterViewModel @Inject constructor(
 
                 is ResultState.Error -> {
                     _state.update { it.copy(isLoading = false) }
-                    _event.emit(response.message)
+                    _event.emit(SnackBarEvent(response.message, isError = true))
                 }
             }
         }
