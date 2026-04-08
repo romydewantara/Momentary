@@ -39,6 +39,8 @@ import com.example.momentary.R
 import com.example.momentary.ui.common.CustomSnackBar
 import com.example.momentary.ui.common.CustomView
 import com.example.momentary.ui.common.TextFieldType
+import com.example.momentary.ui.navigation.NavKeys
+import com.example.momentary.ui.screen.auth.login.component.LoginHeader
 import com.example.momentary.ui.theme.Tertiary
 
 @Composable
@@ -58,18 +60,18 @@ fun LoginScreen(
     var isErrorSnackBar by remember { mutableStateOf(false) }
 
     val savedStateHandle = backStackEntry.savedStateHandle
+    val registerSuccess = savedStateHandle.get<Boolean>(NavKeys.REGISTER_SUCCESS)
+    val successMessage = stringResource(R.string.register_success)
 
-    LaunchedEffect(Unit) {
-        savedStateHandle.getStateFlow("register_success", false)
-            .collect { success ->
-                if (success) {
-                    snackBarHostState.showSnackbar(
-                        message = context.getString(R.string.register_success)
-                    )
-                    isErrorSnackBar = false
-                    savedStateHandle["register_success"] = false
-                }
-            }
+    LaunchedEffect(registerSuccess) {
+        if (registerSuccess == true) {
+            snackBarHostState.showSnackbar(
+                message = successMessage
+            )
+            isErrorSnackBar = false
+
+            savedStateHandle.remove<Boolean>(NavKeys.REGISTER_SUCCESS)
+        }
     }
 
     LaunchedEffect(state.isSuccess) {
@@ -110,6 +112,10 @@ fun LoginScreen(
                 .imePadding(),
             verticalArrangement = Arrangement.Center
         ) {
+
+            LoginHeader()
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             CustomView(
                 value = state.email,

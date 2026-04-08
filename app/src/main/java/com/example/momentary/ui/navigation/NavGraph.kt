@@ -59,8 +59,11 @@ fun NavGraph(
                     onRegisterSuccess = {
                         navController.previousBackStackEntry
                             ?.savedStateHandle
-                            ?.set("register_success", true)
+                            ?.set(NavKeys.REGISTER_SUCCESS, true)
 
+                        navController.popBackStack()
+                    },
+                    onBack = {
                         navController.popBackStack()
                     }
                 )
@@ -78,7 +81,7 @@ fun NavGraph(
                     },
                     onNavigateToDetail = { story ->
                         val currentEntry = navController.currentBackStackEntry
-                        currentEntry?.savedStateHandle?.set("selected_story", story)
+                        currentEntry?.savedStateHandle?.set(NavKeys.SELECTED_STORY, story)
 
                         navController.navigate(Screen.Detail.createRoute(story.id))
                     },
@@ -93,7 +96,7 @@ fun NavGraph(
                 val story = navController
                     .getBackStackEntry(Screen.Home.route)
                     .savedStateHandle
-                    .get<Story>("selected_story")
+                    .get<Story>(NavKeys.SELECTED_STORY)
 
                 story?.let {
                     DetailScreen(

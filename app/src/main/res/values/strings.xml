@@ -12,15 +12,14 @@
     <string name="login_register_text_link">Register here</string>
 
     <!-- Register Screen -->
-    <string name="register_label_email">Email</string>
-    <string name="register_label_password">Password</string>
+    <string name="register_heading">Create a new account</string>
+    <string name="register_subheading">Fill in a few details below to get started. Only your name will be visible publicly.</string>
     <string name="register_button_register">Sign Up</string>
-    <string name="register_login_text_link">Sign In</string>
     <string name="register_email_name">Name must be at least 3 characters</string>
     <string name="register_success">Registration successful. Please log in to continue.</string>
 
     <!-- Drawer Screen -->
-    <string name="drawer_title" translatable="true">Home</string>
+    <string name="drawer_title">Home</string>
     <string name="drawer_change_language">Change language</string>
     <string name="drawer_logout">Log out</string>
 
@@ -68,6 +67,7 @@
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_button_logout">Logout</string>
     <string name="cd_button_back">Back</string>
     <string name="cd_story_image">Image</string>
     <string name="cd_add_image">Add Image</string>
