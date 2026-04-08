@@ -5,16 +5,12 @@ import androidx.annotation.StringRes
 
 sealed class UiText {
 
-    data class DynamicString(val value: String) : UiText()
+    abstract fun asString(context: Context): String
 
     data class StringResource(
         @param:StringRes val resId: Int
-    ) : UiText()
-
-    fun asString(context: Context): String {
-        return when (this) {
-            is DynamicString -> value
-            is StringResource -> context.getString(resId)
-        }
+    ) : UiText() {
+        override fun asString(context: Context): String =
+            context.getString(resId)
     }
 }

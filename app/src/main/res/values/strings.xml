@@ -19,9 +19,15 @@
     <string name="register_success">Registration successful. Please log in to continue.</string>
 
     <!-- Drawer Screen -->
-    <string name="drawer_title">Home</string>
+    <string name="drawer_title">Momentary</string>
+    <string name="drawer_profile_default_initial">G</string>
+    <string name="drawer_profile_default_name">Guest</string>
+    <string name="drawer_profile_default_email">guest@momentary.app</string>
+    <string name="drawer_main_menu">Stories</string>
     <string name="drawer_change_language">Change language</string>
     <string name="drawer_logout">Log out</string>
+    <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
+    <string name="drawer_app_build">v1.0.0.2026.03.10 – DEV</string>
 
     <!-- Home Screen -->
     <string name="home_empty_story">No stories yet</string>
@@ -67,8 +73,11 @@
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_button_menu">Menu</string>
+    <string name="cd_button_language">Language</string>
     <string name="cd_button_logout">Logout</string>
     <string name="cd_button_back">Back</string>
+    <string name="cd_story">Story</string>
     <string name="cd_story_image">Image</string>
     <string name="cd_add_image">Add Image</string>
     <string name="cd_camera">Camera</string>

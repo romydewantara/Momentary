@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Momentary</string>
+
+    <!-- Common -->
+    <string name="text_field_email">Email</string>
+    <string name="text_field_password">Kata sandi</string>
+    <string name="text_field_name">Nama</string>
+
+    <!-- Login Screen -->
+    <string name="login_button_login">Masuk</string>
+    <string name="login_register_text">Belum punya akun?</string>
+    <string name="login_register_text_link">Daftar di sini</string>
+
+    <!-- Register Screen -->
+    <string name="register_heading">Buat akun baru</string>
+    <string name="register_subheading">Isi beberapa data di bawah untuk mulai. Nama kamu saja yang akan terlihat publik.</string>
+    <string name="register_button_register">Daftar</string>
+    <string name="register_email_name">Nama minimal terdiri dari 3 karakter</string>
+    <string name="register_success">Pendaftaran berhasil. Silakan masuk untuk melanjutkan.</string>
+
+    <!-- Drawer Screen -->
+    <string name="drawer_title">Momentary</string>
+    <string name="drawer_profile_default_initial">T</string>
+    <string name="drawer_profile_default_name">Tamu</string>
+    <string name="drawer_profile_default_email">tamu@momentary.app</string>
+    <string name="drawer_main_menu">Momen</string>
+    <string name="drawer_change_language">Ganti bahasa</string>
+    <string name="drawer_logout">Keluar</string>
+    <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
+    <string name="drawer_app_build">v1.0.0.2026.03.10 – DEV</string>
+
+    <!-- Home Screen -->
+    <string name="home_empty_story">Belum ada cerita</string>
+    <string name="home_empty_story_description">Jadilah yang pertama berbagi momenmu!</string>
+    <string name="home_pull_to_refresh_hint">Tarik ke bawah untuk menyegarkan</string>
+
+    <!-- Add Story Screen -->
+    <string name="add_story_title">Cerita Baru</string>
+    <string name="add_story_add_image">Ketuk di sini untuk menambahkan gambar</string>
+    <string name="add_story_add_image_select_source">Pilih sumber gambar</string>
+    <string name="add_story_add_image_source_gallery">Galeri</string>
+    <string name="add_story_add_image_source_camera">Kamera</string>
+    <string name="add_story_description_hint">Ceritakan sedikit di sini…</string>
+    <string name="add_story_add_location">Tambahkan lokasi</string>
+    <string name="add_story_button_upload">Unggah</string>
+    <string name="add_story_button_uploading">Mengunggah</string>
+    <string name="add_story_success">Yeay! Ceritamu berhasil diposting.</string>
+
+    <!-- Detail Story Screen -->
+    <string name="detail_story_title">Detail</string>
+
+    <!-- Time Formatter -->
+    <string name="time_format_now">baru saja</string>
+    <string name="time_format_minutes_ago">%1$d menit yang lalu</string>
+    <string name="time_format_hours_ago">%1$d jam yang lalu</string>
+    <string name="time_format_days_ago">%1$d hari yang lalu</string>
+
+    <!-- Error Message -->
+    <string name="error_email_invalid">Format email tidak valid</string>
+    <string name="error_password">Kata sandi minimal terdiri dari 8 karakter</string>
+    <string name="error_name">Nama minimal terdiri dari 3 karakter</string>
+    <string name="error_email_already_taken">Sepertinya email ini sudah digunakan. Coba yang lain atau langsung masuk saja.</string>
+    <string name="error_must_valid_email">Email yang dimasukkan harus berupa alamat email yang valid.</string>
+    <string name="error_user_not_found">Pengguna tidak ditemukan</string>
+    <string name="error_invalid_password">Kata sandi salah</string>
+    <string name="error_unknown">Terjadi kesalahan, silakan coba lagi nanti</string>
+    <string name="error_story_load">Gagal memuat cerita</string>
+    <string name="error_load_story_detail">Gagal memuat detail cerita</string>
+    <string name="error_upload_new_story">Gagal mengunggah cerita</string>
+    <string name="error_unauthorized">Maaf, kamu tidak memiliki akses ke fitur ini.</string>
+    <string name="error_network">Koneksi gagal, periksa jaringan kamu dan coba lagi</string>
+
+    <!-- Content Description and Tag -->
+    <string name="cd_clear_email">Hapus email</string>
+    <string name="cd_toggle_password">Tampilkan/sembunyikan kata sandi</string>
+    <string name="cd_button_menu">Menu</string>
+    <string name="cd_button_language">Bahasa</string>
+    <string name="cd_button_logout">Keluar</string>
+    <string name="cd_button_back">Kembali</string>
+    <string name="cd_story">Cerita</string>
+    <string name="cd_story_image">Gambar</string>
+    <string name="cd_add_image">Tambah gambar</string>
+    <string name="cd_camera">Kamera</string>
+    <string name="cd_gallery">Galeri</string>
+    <string name="tag_register">register</string>
+
+    <!-- StackView Widget -->
+    <string name="stack_view_image_desc">item gambar</string>
+</resources>

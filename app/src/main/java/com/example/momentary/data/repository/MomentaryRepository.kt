@@ -5,9 +5,11 @@ import com.example.momentary.data.local.SessionPreferences
 import com.example.momentary.data.model.AuthResponse
 import com.example.momentary.data.model.BaseResponse
 import com.example.momentary.data.model.Story
+import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.remote.ApiService
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.UiText
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -21,8 +23,12 @@ class MomentaryRepository @Inject constructor(
     suspend fun login(email: String, password: String): ResultState<AuthResponse> {
         return try {
             val response = api.login(email = email, password = password)
-            response.loginResult?.token?.let {
-                prefs.saveToken(it)
+            response.loginResult?.let {
+                prefs.saveSession(
+                    token = it.token,
+                    name = it.name,
+                    email = email
+                )
             }
 
             ResultState.Success(response)
@@ -124,6 +130,10 @@ class MomentaryRepository @Inject constructor(
         } catch (_: Exception) {
             ResultState.Error(UiText.StringResource(R.string.error_network))
         }
+    }
+
+    fun getSession(): Flow<UserSession> {
+        return prefs.getSession()
     }
 
     suspend fun logout() {

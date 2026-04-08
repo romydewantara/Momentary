@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.momentary.data.model.UserSession
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,14 +17,32 @@ class SessionPreferences @Inject constructor(
 ) {
 
     private val tokenKey = stringPreferencesKey("token")
+    private val nameKey = stringPreferencesKey("name")
+    private val emailKey = stringPreferencesKey("email")
 
     fun getToken(): Flow<String?> {
         return context.dataStore.data.map { it[tokenKey] }
     }
 
-    suspend fun saveToken(token: String) {
+    suspend fun saveSession(
+        token: String,
+        name: String,
+        email: String
+    ) {
         context.dataStore.edit {
             it[tokenKey] = token
+            it[nameKey] = name
+            it[emailKey] = email
+        }
+    }
+
+    fun getSession(): Flow<UserSession> {
+        return context.dataStore.data.map {
+            UserSession(
+                token = it[tokenKey],
+                name = it[nameKey],
+                email = it[emailKey]
+            )
         }
     }
 

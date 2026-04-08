@@ -118,14 +118,14 @@ fun RegisterScreen(
                     )
                 }
                 Text(
-                    text = "Buat akun baru",
+                    text = stringResource(R.string.register_heading),
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold
                     )
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = "Isi beberapa data di bawah untuk mulai. Nama Anda saja yang akan terlihat publik.",
+                    text = stringResource(R.string.register_subheading),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = FontWeight.Medium
                     ),
