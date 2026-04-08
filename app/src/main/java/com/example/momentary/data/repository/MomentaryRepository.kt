@@ -24,8 +24,8 @@ class MomentaryRepository @Inject constructor(
             response.loginResult?.token?.let {
                 prefs.saveToken(it)
             }
-            ResultState.Success(response)
 
+            ResultState.Success(response)
         } catch (e: retrofit2.HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
 
@@ -62,8 +62,8 @@ class MomentaryRepository @Inject constructor(
                 name = name,
                 password = password
             )
-            ResultState.Success(response)
 
+            ResultState.Success(response)
         } catch (e: retrofit2.HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
 
@@ -74,15 +74,11 @@ class MomentaryRepository @Inject constructor(
                 errorBody?.contains("must be a valid email", true) == true ->
                     UiText.StringResource(R.string.error_must_valid_email)
 
-                errorBody?.contains("at least 8 characters", true) == true ->
-                    UiText.StringResource(R.string.error_password)
-
                 else ->
                     UiText.StringResource(R.string.error_unknown)
             }
 
             ResultState.Error(message)
-
         } catch (_: Exception) {
             ResultState.Error(
                 UiText.StringResource(R.string.error_network)
@@ -93,7 +89,8 @@ class MomentaryRepository @Inject constructor(
     suspend fun getStories(): ResultState<List<Story>> {
         return try {
             val token = prefs.getToken().first() ?: ""
-            val response = api.getStories("Bearer $token")
+            val response = api.getStories(token = "Bearer $token")
+
             ResultState.Success(response.listStory)
         } catch (_: Exception) {
             ResultState.Error(UiText.StringResource(R.string.error_network))
@@ -101,11 +98,32 @@ class MomentaryRepository @Inject constructor(
     }
 
     suspend fun addStory(
-        image: MultipartBody.Part,
+        photo: MultipartBody.Part,
         description: RequestBody
-    ): BaseResponse {
-        val token = prefs.getToken().first() ?: ""
-        return api.addStory(token = token, image = image, description = description)
+    ): ResultState<BaseResponse> {
+        return try {
+            val token = prefs.getToken().first() ?: ""
+            val response = api.addStory(
+                token = "Bearer $token",
+                photo = photo,
+                description = description
+            )
+            ResultState.Success(response)
+        } catch (e: retrofit2.HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val unauthorizedKeywords = listOf("Unauthorized", "Missing authentication")
+            val message = if (
+                unauthorizedKeywords.any { errorBody?.contains(it, true) == true }
+            ) {
+                UiText.StringResource(R.string.error_unauthorized)
+            } else {
+                UiText.StringResource(R.string.error_unauthorized)
+            }
+
+            ResultState.Error(message)
+        } catch (_: Exception) {
+            ResultState.Error(UiText.StringResource(R.string.error_network))
+        }
     }
 
     suspend fun logout() {

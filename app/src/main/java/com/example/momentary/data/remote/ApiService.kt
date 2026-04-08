@@ -39,7 +39,7 @@ interface ApiService {
     @POST("stories")
     suspend fun addStory(
         @Header("Authorization") token: String,
-        @Part image: MultipartBody.Part,
+        @Part photo: MultipartBody.Part,
         @Part("description") description: RequestBody
     ): BaseResponse
 }

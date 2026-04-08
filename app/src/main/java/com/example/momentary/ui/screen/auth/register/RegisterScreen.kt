@@ -9,16 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -33,14 +25,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.momentary.R
 import com.example.momentary.ui.common.CustomSnackBar
+import com.example.momentary.ui.common.CustomView
+import com.example.momentary.ui.common.TextFieldType
 
 @Composable
 fun RegisterScreen(
@@ -55,7 +47,6 @@ fun RegisterScreen(
     val focusManager = LocalFocusManager.current
 
     var isErrorSnackBar by remember { mutableStateOf(false) }
-    var passwordVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
@@ -97,94 +88,42 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            OutlinedTextField(
+            CustomView(
                 value = state.name,
                 onValueChange = viewModel::onNameChange,
-                label = { Text(stringResource(R.string.register_label_name)) },
+                label = stringResource(R.string.text_field_name),
+                type = TextFieldType.TEXT,
                 isError = state.nameError != null,
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
+                errorMessage = state.nameError?.asString(context),
+                onDone = { focusManager.clearFocus() },
+                leadingIcon = painterResource(R.drawable.ic_person)
             )
-
-            state.nameError?.let {
-                Text(
-                    text = it.asString(context),
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 14.sp
-                )
-            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            OutlinedTextField(
+            CustomView(
                 value = state.email,
                 onValueChange = viewModel::onEmailChange,
-                label = { Text(stringResource(R.string.login_form_email)) },
+                label = stringResource(R.string.text_field_email),
+                type = TextFieldType.EMAIL,
                 isError = state.emailError != null,
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
+                errorMessage = state.emailError?.asString(context),
+                onDone = { focusManager.clearFocus() },
+                leadingIcon = painterResource(R.drawable.ic_email)
             )
-
-            state.emailError?.let {
-                Text(
-                    text = it.asString(context),
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 14.sp
-                )
-            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            OutlinedTextField(
+            CustomView(
                 value = state.password,
                 onValueChange = viewModel::onPasswordChange,
-                label = { Text(stringResource(R.string.login_form_password)) },
+                label = stringResource(R.string.text_field_password),
+                type = TextFieldType.PASSWORD,
                 isError = state.passwordError != null,
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
-                visualTransformation = if (passwordVisible) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                },
-                trailingIcon = {
-                    IconButton(
-                        onClick = { passwordVisible = !passwordVisible }
-                    ) {
-                        Icon(
-                            imageVector = if (passwordVisible) {
-                                Icons.Default.Visibility
-                            } else {
-                                Icons.Default.VisibilityOff
-                            },
-                            contentDescription = stringResource(R.string.cd_toggle_password)
-                        )
-                    }
-                }
+                errorMessage = state.passwordError?.asString(context),
+                onDone = { focusManager.clearFocus() },
+                leadingIcon = painterResource(R.drawable.ic_lock)
             )
-
-            state.passwordError?.let {
-                Text(
-                    text = it.asString(context),
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 14.sp
-                )
-            }
 
             Spacer(modifier = Modifier.height(16.dp))
 

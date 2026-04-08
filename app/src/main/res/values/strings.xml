@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">Momentary</string>
 
+    <!-- Common -->
+    <string name="text_field_email">Email</string>
+    <string name="text_field_password">Password</string>
+    <string name="text_field_name">Name</string>
+
     <!-- Login Screen -->
-    <string name="login_form_email">Email</string>
-    <string name="login_form_password">Password</string>
     <string name="login_button_login">Sign In</string>
     <string name="login_register_text">Don’t have an account?</string>
     <string name="login_register_text_link">Register here</string>
 
     <!-- Register Screen -->
-    <string name="register_label_name">Name</string>
     <string name="register_label_email">Email</string>
     <string name="register_label_password">Password</string>
     <string name="register_button_register">Sign Up</string>
@@ -37,6 +39,7 @@
     <string name="add_story_add_location">Add location</string>
     <string name="add_story_button_upload">Upload</string>
     <string name="add_story_button_uploading">Uploading</string>
+    <string name="add_story_success">Hooray! Your story has been posted.</string>
 
     <!-- Detail Story Screen -->
     <string name="detail_story_title">Detail</string>
@@ -59,12 +62,17 @@
     <string name="error_story_load">Failed to load stories</string>
     <string name="error_load_story_detail">Failed to load story details</string>
     <string name="error_upload_new_story">Failed to upload story</string>
+    <string name="error_unauthorized">Sorry, you’re not authorized to access this.</string>
     <string name="error_network">Connection failed, check your network and try again</string>
 
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_button_back">Back</string>
     <string name="cd_story_image">Image</string>
+    <string name="cd_add_image">Add Image</string>
+    <string name="cd_camera">Camera</string>
+    <string name="cd_gallery">Gallery</string>
     <string name="tag_register">register</string>
 
     <!-- StackView Widget -->
