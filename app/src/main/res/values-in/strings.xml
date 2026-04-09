@@ -60,6 +60,7 @@
     <string name="error_password">Kata sandi minimal terdiri dari 8 karakter</string>
     <string name="error_name">Nama minimal terdiri dari 3 karakter</string>
     <string name="error_email_already_taken">Sepertinya email ini sudah digunakan. Coba yang lain atau langsung masuk saja.</string>
+    <string name="error_timeout">Permintaan timeout. Pastikan koneksi stabil, lalu coba lagi.</string>
     <string name="error_must_valid_email">Email yang dimasukkan harus berupa alamat email yang valid.</string>
     <string name="error_user_not_found">Pengguna tidak ditemukan</string>
     <string name="error_invalid_password">Kata sandi salah</string>
@@ -73,6 +74,7 @@
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Hapus email</string>
     <string name="cd_toggle_password">Tampilkan/sembunyikan kata sandi</string>
+    <string name="cd_header">Judul</string>
     <string name="cd_button_menu">Menu</string>
     <string name="cd_button_language">Bahasa</string>
     <string name="cd_button_logout">Keluar</string>

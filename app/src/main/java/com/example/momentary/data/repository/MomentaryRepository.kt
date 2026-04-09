@@ -98,8 +98,19 @@ class MomentaryRepository @Inject constructor(
             val response = api.getStories(token = "Bearer $token")
 
             ResultState.Success(response.listStory)
-        } catch (_: Exception) {
+        } catch (_: retrofit2.HttpException) {
             ResultState.Error(UiText.StringResource(R.string.error_network))
+        } catch (e: Exception) {
+            val errorBody = e.message
+
+            val message = when {
+                errorBody?.contains("timeout", true) == true ->
+                    UiText.StringResource(R.string.error_timeout)
+
+                else ->
+                    UiText.StringResource(R.string.error_unknown)
+            }
+            ResultState.Error(message)
         }
     }
 
@@ -123,7 +134,7 @@ class MomentaryRepository @Inject constructor(
             ) {
                 UiText.StringResource(R.string.error_unauthorized)
             } else {
-                UiText.StringResource(R.string.error_unauthorized)
+                UiText.StringResource(R.string.error_unknown)
             }
 
             ResultState.Error(message)

@@ -2,12 +2,10 @@ package com.example.momentary.ui.screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.momentary.R
 import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.SnackBarEvent
-import com.example.momentary.ui.common.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -85,7 +83,7 @@ class HomeViewModel @Inject constructor(
 
                         _event.emit(
                             SnackBarEvent(
-                                message = UiText.StringResource(R.string.error_network),
+                                message = result.message,
                                 isError = true
                             )
                         )

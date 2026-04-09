@@ -60,6 +60,7 @@
     <string name="error_password">Password must be at least 8 characters</string>
     <string name="error_name">Name must be at least 3 characters</string>
     <string name="error_email_already_taken">Looks like this email is already taken. Try another one or sign in instead.</string>
+    <string name="error_timeout">Request timed out. Check your internet connection and try again.</string>
     <string name="error_must_valid_email">The email entered must be a valid email address.</string>
     <string name="error_user_not_found">User not found</string>
     <string name="error_invalid_password">Invalid password</string>
@@ -73,6 +74,7 @@
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_header">Header</string>
     <string name="cd_button_menu">Menu</string>
     <string name="cd_button_language">Language</string>
     <string name="cd_button_logout">Logout</string>
