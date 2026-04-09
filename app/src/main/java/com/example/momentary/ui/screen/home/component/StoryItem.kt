@@ -2,8 +2,8 @@ package com.example.momentary.ui.screen.home.component
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
@@ -27,26 +27,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
+import com.example.momentary.ui.common.Avatar
 import com.example.momentary.ui.common.StoryImage
 import com.example.momentary.ui.screen.home.HomeViewModel
-import com.example.momentary.ui.theme.Red
-import com.example.momentary.utils.Constants
-import com.example.momentary.utils.toEpochMillis
-import com.example.momentary.utils.toRelativeTime
 
 @Composable
 fun StoryItem(
     modifier: Modifier = Modifier,
     story: Story,
+    isVerified: Boolean,
+    isOwnStory: Boolean,
+    timeText: String,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onClick: () -> Unit,
@@ -70,13 +70,10 @@ fun StoryItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
-                model = Constants.PHOTO_URL,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, MaterialTheme.colorScheme.surface, CircleShape)
+
+            Avatar(
+                name = story.name,
+                isOwnStory = isOwnStory
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -99,17 +96,25 @@ fun StoryItem(
 
             Column {
 
-                with(sharedTransitionScope) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = story.name,
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.Black
-                        ),
-                        modifier = Modifier.sharedElement(
-                            rememberSharedContentState(key = "title-${story.id}"),
-                            animatedVisibilityScope
                         )
                     )
+
+                    if (isVerified) {
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Image(
+                            painter = painterResource(R.drawable.ic_certified),
+                            contentDescription = stringResource(R.string.cd_story),
+                            modifier = Modifier
+                                .size(16.dp)
+                                .offset(y = (-1).dp)
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(2.dp))
@@ -120,7 +125,7 @@ fun StoryItem(
                         Icon(
                             imageVector = Icons.Default.LocationOn,
                             contentDescription = null,
-                            tint = Red,
+                            tint = Color.Red,
                             modifier = Modifier.size(14.dp)
                         )
 
@@ -156,7 +161,7 @@ fun StoryItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Text(
-                    text = story.createdAt.toEpochMillis().toRelativeTime(),
+                    text = timeText,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .7f)
                 )

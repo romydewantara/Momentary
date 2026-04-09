@@ -47,6 +47,9 @@ import com.example.momentary.ui.screen.home.component.EmptyState
 import com.example.momentary.ui.screen.home.component.ErrorState
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
+import com.example.momentary.utils.Constants
+import com.example.momentary.utils.toEpochMillis
+import com.example.momentary.utils.toRelativeTime
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -191,9 +194,19 @@ fun HomeScreen(
                                         items = stories,
                                         key = { _, it -> it.id }
                                     ) { index, story ->
+                                        val isOwnStory = story.name == session.name
+                                        val isVerified =
+                                            story.name == Constants.OFFICIAL_ACCOUNT_NAME || isOwnStory
+                                        val timeText = remember(story.createdAt) {
+                                            story.createdAt.toEpochMillis().toRelativeTime()
+                                        }
+
                                         Column {
                                             StoryItem(
                                                 story = story,
+                                                isVerified = isVerified,
+                                                isOwnStory = isOwnStory,
+                                                timeText = timeText,
                                                 sharedTransitionScope = sharedTransitionScope,
                                                 animatedVisibilityScope = animatedVisibilityScope,
                                                 onClick = { onNavigateToDetail(story) },

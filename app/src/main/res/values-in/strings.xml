@@ -69,7 +69,7 @@
     <string name="error_load_story_detail">Gagal memuat detail cerita</string>
     <string name="error_upload_new_story">Gagal mengunggah cerita</string>
     <string name="error_unauthorized">Maaf, kamu tidak memiliki akses ke fitur ini.</string>
-    <string name="error_network">Koneksi gagal, periksa jaringan kamu dan coba lagi</string>
+    <string name="error_network">Gagal terhubung ke jaringan, coba periksa koneksi kamu lalu muat ulang.</string>
 
     <!-- Content Description and Tag -->
     <string name="cd_clear_email">Hapus email</string>
@@ -79,6 +79,7 @@
     <string name="cd_button_language">Bahasa</string>
     <string name="cd_button_logout">Keluar</string>
     <string name="cd_button_back">Kembali</string>
+    <string name="cd_certified">Sertifikasi</string>
     <string name="cd_story">Cerita</string>
     <string name="cd_story_image">Gambar</string>
     <string name="cd_story_item_public">Publik</string>

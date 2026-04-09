@@ -99,16 +99,16 @@ class MomentaryRepository @Inject constructor(
 
             ResultState.Success(response.listStory)
         } catch (_: retrofit2.HttpException) {
-            ResultState.Error(UiText.StringResource(R.string.error_network))
+            ResultState.Error(UiText.StringResource(R.string.error_unknown))
         } catch (e: Exception) {
-            val errorBody = e.message
+            val errorMessage = e.message
 
             val message = when {
-                errorBody?.contains("timeout", true) == true ->
+                errorMessage?.contains("timeout", true) == true ->
                     UiText.StringResource(R.string.error_timeout)
 
                 else ->
-                    UiText.StringResource(R.string.error_unknown)
+                    UiText.StringResource(R.string.error_network)
             }
             ResultState.Error(message)
         }
@@ -138,8 +138,18 @@ class MomentaryRepository @Inject constructor(
             }
 
             ResultState.Error(message)
-        } catch (_: Exception) {
-            ResultState.Error(UiText.StringResource(R.string.error_network))
+        } catch (e: Exception) {
+            val errorMessage = e.message
+
+            val message = when {
+                errorMessage?.contains("timeout", true) == true ->
+                    UiText.StringResource(R.string.error_timeout)
+
+                else ->
+                    UiText.StringResource(R.string.error_network)
+            }
+
+            ResultState.Error(message)
         }
     }
 

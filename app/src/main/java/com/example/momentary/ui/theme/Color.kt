@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.Color
 val Primary = Color(0xFF01579B)
 val Secondary = Color(0xFF54C5F8)
 val Tertiary = Color(0xFF2191F6)
-val Red = Color(0xFFFF0000)
 
 // On Colors
 val OnPrimary = Color.White
