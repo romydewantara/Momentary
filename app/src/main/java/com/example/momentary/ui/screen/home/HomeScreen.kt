@@ -196,7 +196,8 @@ fun HomeScreen(
                                                 story = story,
                                                 sharedTransitionScope = sharedTransitionScope,
                                                 animatedVisibilityScope = animatedVisibilityScope,
-                                                onClick = { onNavigateToDetail(story) }
+                                                onClick = { onNavigateToDetail(story) },
+                                                viewModel = viewModel
                                             )
 
                                             if (index < stories.lastIndex) {

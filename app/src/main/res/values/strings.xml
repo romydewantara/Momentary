@@ -81,6 +81,7 @@
     <string name="cd_button_back">Back</string>
     <string name="cd_story">Story</string>
     <string name="cd_story_image">Image</string>
+    <string name="cd_story_item_public">Public</string>
     <string name="cd_add_image">Add Image</string>
     <string name="cd_camera">Camera</string>
     <string name="cd_gallery">Gallery</string>

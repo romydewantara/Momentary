@@ -81,6 +81,7 @@
     <string name="cd_button_back">Kembali</string>
     <string name="cd_story">Cerita</string>
     <string name="cd_story_image">Gambar</string>
+    <string name="cd_story_item_public">Publik</string>
     <string name="cd_add_image">Tambah gambar</string>
     <string name="cd_camera">Kamera</string>
     <string name="cd_gallery">Galeri</string>

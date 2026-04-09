@@ -100,6 +100,7 @@ fun NavGraph(
 
                 story?.let {
                     DetailScreen(
+                        parentEntry = navController.getBackStackEntry(Screen.Home.route),
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedVisibilityScope = this,
                         story = it,

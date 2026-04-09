@@ -1,11 +1,15 @@
 package com.example.momentary.ui.screen.home
 
+import android.content.Context
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.momentary.data.model.Story
 import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.SnackBarEvent
+import com.example.momentary.utils.getCityCountrySafe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +34,14 @@ class HomeViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = UserSession(null, null, null)
     )
+
+    private val _aspectRatios = mutableStateMapOf<String, Float>()
+    val aspectRatios: Map<String, Float> = _aspectRatios
+
+    private val _locationMap = mutableStateMapOf<String, String>()
+    val locationMap: Map<String, String> = _locationMap
+
+    private val loadingSet = mutableSetOf<String>()
 
     private val _event = MutableSharedFlow<SnackBarEvent>()
     val event = _event.asSharedFlow()
@@ -95,6 +107,30 @@ class HomeViewModel @Inject constructor(
 
     fun refresh() {
         fetchStories(isRefresh = true)
+    }
+
+    fun setAspectRatio(id: String, ratio: Float) {
+        _aspectRatios[id] = ratio
+    }
+
+    fun getAspectRatio(id: String): Float? {
+        return aspectRatios[id]
+    }
+
+    fun resolveLocation(context: Context, story: Story) {
+        val lat = story.lat
+        val lon = story.lon
+
+        if (lat == null || lon == null) return
+        if (_locationMap.containsKey(story.id)) return
+        if (loadingSet.contains(story.id)) return
+
+        loadingSet.add(story.id)
+
+        context.getCityCountrySafe(lat, lon) { result ->
+            _locationMap[story.id] = result
+            loadingSet.remove(story.id)
+        }
     }
 
     fun logout(onLogout: () -> Unit) {

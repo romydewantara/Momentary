@@ -5,7 +5,10 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -17,18 +20,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.StoryImage
 import com.example.momentary.ui.common.StoryTopBar
+import com.example.momentary.ui.screen.home.HomeViewModel
 
 @Composable
 fun DetailScreen(
+    parentEntry: NavBackStackEntry,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     story: Story,
     onBack: () -> Unit
 ) {
+    val viewModel: HomeViewModel = hiltViewModel(parentEntry)
+    val ratio = viewModel.getAspectRatio(story.id)
+
     Scaffold(
         topBar = {
             StoryTopBar(
@@ -49,7 +59,10 @@ fun DetailScreen(
                 id = story.id,
                 photoUrl = story.photoUrl,
                 sharedTransitionScope = sharedTransitionScope,
-                animatedVisibilityScope = animatedVisibilityScope
+                animatedVisibilityScope = animatedVisibilityScope,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .storyImageSize(ratio)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -83,4 +96,11 @@ fun DetailScreen(
             }
         }
     }
+}
+
+fun Modifier.storyImageSize(ratio: Float?): Modifier {
+    return this.then(
+        if (ratio != null) Modifier.aspectRatio(ratio)
+        else Modifier.fillMaxHeight()
+    )
 }
