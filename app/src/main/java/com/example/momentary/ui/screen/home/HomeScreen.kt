@@ -5,14 +5,16 @@ import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -185,16 +187,25 @@ fun HomeScreen(
 
                             else -> {
                                 LazyColumn {
-                                    items(
+                                    itemsIndexed(
                                         items = stories,
-                                        key = { it.id }
-                                    ) { story ->
-                                        StoryItem(
-                                            story = story,
-                                            sharedTransitionScope = sharedTransitionScope,
-                                            animatedVisibilityScope = animatedVisibilityScope,
-                                            onClick = { onNavigateToDetail(story) }
-                                        )
+                                        key = { _, it -> it.id }
+                                    ) { index, story ->
+                                        Column {
+                                            StoryItem(
+                                                story = story,
+                                                sharedTransitionScope = sharedTransitionScope,
+                                                animatedVisibilityScope = animatedVisibilityScope,
+                                                onClick = { onNavigateToDetail(story) }
+                                            )
+
+                                            if (index < stories.lastIndex) {
+                                                HorizontalDivider(
+                                                    thickness = 0.8.dp,
+                                                    color = MaterialTheme.colorScheme.outlineVariant
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                             }
