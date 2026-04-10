@@ -106,10 +106,19 @@ class MomentaryRepository @Inject constructor(
         }
     }
 
-    suspend fun getStories(): ResultState<List<Story>> {
+    suspend fun getStories(
+        page: Int? = null,
+        size: Int? = null,
+        location: Int? = null
+    ): ResultState<List<Story>> {
         return try {
             val token = prefs.getToken().first() ?: ""
-            val response = api.getStories(token = "Bearer $token")
+            val response = api.getStories(
+                token = "Bearer $token",
+                page = page,
+                size = size,
+                location = location
+            )
 
             ResultState.Success(response.listStory)
         } catch (_: retrofit2.HttpException) {

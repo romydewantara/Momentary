@@ -61,7 +61,11 @@ class HomeViewModel @Inject constructor(
                 )
             }
 
-            when (val result = repository.getStories()) {
+            when (val result = repository.getStories(
+                page = 1,
+                size = 20,
+                location = 0
+            )) {
                 is ResultState.Success -> {
                     _state.update {
                         it.copy(
