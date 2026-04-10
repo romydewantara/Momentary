@@ -162,6 +162,10 @@ fun HomeScreen(
                     ) {
                         items(5) {
                             ShimmerItem()
+                            HorizontalDivider(
+                                thickness = 0.8.dp,
+                                color = MaterialTheme.colorScheme.outlineVariant
+                            )
                         }
                     }
                 }

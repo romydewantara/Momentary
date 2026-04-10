@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -25,11 +25,11 @@ fun Avatar(
     if (isOwnStory) {
         AsyncImage(
             model = if (name == Constants.OFFICIAL_ACCOUNT_NAME) {
-                painterResource(R.drawable.ic_launcher_foreground)
+                R.drawable.ic_launcher_foreground
             } else {
                 Constants.PHOTO_URL
             },
-            contentDescription = null,
+            contentDescription = stringResource(R.string.cd_add_image),
             modifier = Modifier
                 .size(48.dp)
                 .clip(CircleShape)

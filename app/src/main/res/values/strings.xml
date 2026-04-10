@@ -75,6 +75,7 @@
     <string name="cd_clear_email">Clear email</string>
     <string name="cd_toggle_password">Toggle password visibility</string>
     <string name="cd_header">Header</string>
+    <string name="cd_image">Image</string>
     <string name="cd_button_menu">Menu</string>
     <string name="cd_button_language">Language</string>
     <string name="cd_button_logout">Logout</string>

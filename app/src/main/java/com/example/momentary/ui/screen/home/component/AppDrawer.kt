@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -74,7 +74,7 @@ fun AppDrawer(
                     onClose()
                 },
                 icon = {
-                    Icon(Icons.Default.List, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Default.List, contentDescription = null)
                 }
             )
 
