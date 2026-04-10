@@ -2,11 +2,15 @@ package com.example.momentary.utils
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.FileProvider
 import com.yalantis.ucrop.UCrop
 import java.io.File
+import java.net.HttpURLConnection
+import java.net.URL
 
 object ImageUtils {
 
@@ -50,5 +54,23 @@ object ImageUtils {
             "${context.packageName}.provider",
             file
         )
+    }
+
+    fun loadBitmap(url: String): Bitmap? {
+        return try {
+            val connection = URL(url).openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+
+            val input = connection.inputStream
+
+            val options = BitmapFactory.Options().apply {
+                inSampleSize = 2
+            }
+
+            BitmapFactory.decodeStream(input, null, options)
+        } catch (_: Exception) {
+            null
+        }
     }
 }
