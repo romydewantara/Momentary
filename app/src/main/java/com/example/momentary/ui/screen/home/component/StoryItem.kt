@@ -109,7 +109,7 @@ fun StoryItem(
 
                         Image(
                             painter = painterResource(R.drawable.ic_certified),
-                            contentDescription = stringResource(R.string.cd_story),
+                            contentDescription = stringResource(R.string.cd_certified),
                             modifier = Modifier
                                 .size(16.dp)
                                 .offset(y = (-1).dp)
@@ -178,7 +178,7 @@ fun StoryItem(
 
                 Icon(
                     imageVector = Icons.Default.Public,
-                    contentDescription = stringResource(R.string.cd_story),
+                    contentDescription = stringResource(R.string.cd_story_item_public),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .7f),
                     modifier = Modifier.size(14.dp)
                 )

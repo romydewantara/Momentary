@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Momentary</string>
 
     <!-- Common -->
@@ -15,12 +15,9 @@
     <string name="register_heading">Buat akun baru</string>
     <string name="register_subheading">Isi beberapa data di bawah untuk mulai. Nama kamu saja yang akan terlihat publik.</string>
     <string name="register_button_register">Daftar</string>
-    <string name="register_email_name">Nama minimal terdiri dari 3 karakter</string>
     <string name="register_success">Pendaftaran berhasil. Silakan masuk untuk melanjutkan.</string>
 
     <!-- Drawer Screen -->
-    <string name="drawer_title">Momentary</string>
-    <string name="drawer_profile_default_initial">T</string>
     <string name="drawer_profile_default_name">Tamu</string>
     <string name="drawer_profile_default_email">tamu@momentary.app</string>
     <string name="drawer_main_menu">Momen</string>
@@ -41,9 +38,7 @@
     <string name="add_story_add_image_source_gallery">Galeri</string>
     <string name="add_story_add_image_source_camera">Kamera</string>
     <string name="add_story_description_hint">Ceritakan sedikit di sini…</string>
-    <string name="add_story_add_location">Tambahkan lokasi</string>
     <string name="add_story_button_upload">Unggah</string>
-    <string name="add_story_button_uploading">Mengunggah</string>
     <string name="add_story_success">Yeay! Ceritamu berhasil diposting.</string>
 
     <!-- Detail Story Screen -->
@@ -51,13 +46,25 @@
 
     <!-- Time Formatter -->
     <string name="time_format_now">baru saja</string>
-    <string name="time_format_minutes_ago">%1$d menit yang lalu</string>
     <string name="time_format_an_hour_ago">Sejam yang lalu</string>
-    <string name="time_format_hours_ago">%1$d jam yang lalu</string>
-    <string name="time_format_days_ago">%1$d hari yang lalu</string>
-    <string name="time_format_weeks_ago">%1$d minggu yang lalu</string>
-    <string name="time_format_months_ago">%1$d bulan yang lalu</string>
-    <string name="time_format_years_ago">%1$d tahun yang lalu</string>
+    <plurals name="time_format_minutes_ago">
+        <item quantity="other">%d menit yang lalu</item>
+    </plurals>
+    <plurals name="time_format_hours_ago">
+        <item quantity="other">%1$d jam yang lalu</item>
+    </plurals>
+    <plurals name="time_format_days_ago">
+        <item quantity="other">%1$d hari yang lalu</item>
+    </plurals>
+    <plurals name="time_format_weeks_ago">
+        <item quantity="other">%1$d minggu yang lalu</item>
+    </plurals>
+    <plurals name="time_format_months_ago">
+        <item quantity="other">%1$d bulan yang lalu</item>
+    </plurals>
+    <plurals name="time_format_years_ago">
+        <item quantity="other">%1$d tahun yang lalu</item>
+    </plurals>
 
     <!-- Error Message -->
     <string name="error_email_invalid">Format email tidak valid</string>
@@ -69,17 +76,11 @@
     <string name="error_user_not_found">Pengguna tidak ditemukan</string>
     <string name="error_invalid_password">Kata sandi salah</string>
     <string name="error_unknown">Terjadi kesalahan, silakan coba lagi nanti</string>
-    <string name="error_story_load">Gagal memuat cerita</string>
-    <string name="error_load_story_detail">Gagal memuat detail cerita</string>
-    <string name="error_upload_new_story">Gagal mengunggah cerita</string>
     <string name="error_unauthorized">Maaf, kamu tidak memiliki akses ke fitur ini.</string>
     <string name="error_network">Gagal terhubung ke jaringan, coba periksa koneksi kamu lalu muat ulang.</string>
 
     <!-- Content Description and Tag -->
-    <string name="cd_clear_email">Hapus email</string>
-    <string name="cd_toggle_password">Tampilkan/sembunyikan kata sandi</string>
     <string name="cd_header">Judul</string>
-    <string name="cd_image">Gambar</string>
     <string name="cd_button_menu">Menu</string>
     <string name="cd_button_language">Bahasa</string>
     <string name="cd_button_logout">Keluar</string>
@@ -89,8 +90,6 @@
     <string name="cd_story_image">Gambar</string>
     <string name="cd_story_item_public">Publik</string>
     <string name="cd_add_image">Tambah gambar</string>
-    <string name="cd_camera">Kamera</string>
-    <string name="cd_gallery">Galeri</string>
     <string name="tag_register">register</string>
 
     <!-- StackView Widget -->

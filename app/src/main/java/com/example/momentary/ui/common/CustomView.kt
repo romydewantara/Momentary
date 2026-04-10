@@ -29,6 +29,7 @@ enum class TextFieldType {
 
 @Composable
 fun CustomView(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -36,7 +37,6 @@ fun CustomView(
     leadingIcon: Painter? = null,
     isError: Boolean = false,
     errorMessage: String? = null,
-    modifier: Modifier = Modifier,
     onDone: () -> Unit = {}
 ) {
 

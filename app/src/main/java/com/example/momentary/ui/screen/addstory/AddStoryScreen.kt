@@ -101,6 +101,10 @@ fun AddStoryScreen(
         if (state.isSuccess) onUploadSuccess()
     }
 
+    val hideBottomSheet = remember {
+        { showBottomSheet = false }
+    }
+
     Scaffold(
         topBar = {
             StoryTopBar(
@@ -132,13 +136,11 @@ fun AddStoryScreen(
         ImageSourceBottomSheet(
             show = showBottomSheet,
             sheetState = sheetState,
-            onDismiss = { showBottomSheet = false },
+            onDismiss = hideBottomSheet,
             onGalleryClick = {
-                showBottomSheet = false
                 galleryLauncher.launch("image/*")
             },
             onCameraClick = {
-                showBottomSheet = false
                 cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
             }
         )

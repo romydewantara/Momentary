@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
+import androidx.annotation.PluralsRes
 import com.example.momentary.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,48 +23,47 @@ private const val MONTH = 30 * DAY
 private const val YEAR = 365 * DAY
 
 fun Long.toRelativeTime(now: Long = System.currentTimeMillis(), context: Context): String {
-    val diff = now - this
+    val diff = (now - this).coerceAtLeast(0L)
 
     return when {
         diff < MINUTE -> context.getString(R.string.time_format_now)
 
         diff < HOUR -> {
             val m = diff / MINUTE
-            if (m == 1L) context.getString(R.string.time_format_minutes_ago, 1)
-            else context.getString(R.string.time_format_minutes_ago, m)
+            context.plural(R.plurals.time_format_minutes_ago, m)
         }
 
         diff < 2 * HOUR -> context.getString(R.string.time_format_an_hour_ago)
 
         diff < DAY -> {
             val h = diff / HOUR
-            context.getString(R.string.time_format_hours_ago, h)
+            context.plural(R.plurals.time_format_hours_ago, h)
         }
 
         diff < WEEK -> {
             val d = diff / DAY
-            if (d == 1L) context.getString(R.string.time_format_days_ago, 1)
-            else context.getString(R.string.time_format_days_ago, d)
+            context.plural(R.plurals.time_format_days_ago, d)
         }
 
         diff < MONTH -> {
             val w = diff / WEEK
-            if (w == 1L) context.getString(R.string.time_format_weeks_ago, 1)
-            else context.getString(R.string.time_format_weeks_ago, w)
+            context.plural(R.plurals.time_format_weeks_ago, w)
         }
 
         diff < YEAR -> {
             val mo = diff / MONTH
-            if (mo == 1L) context.getString(R.string.time_format_months_ago, 1)
-            else context.getString(R.string.time_format_months_ago, mo)
+            context.plural(R.plurals.time_format_months_ago, mo)
         }
 
         else -> {
             val y = diff / YEAR
-            if (y == 1L) context.getString(R.string.time_format_years_ago, 1)
-            else context.getString(R.string.time_format_years_ago, y)
+            context.plural(R.plurals.time_format_years_ago, y)
         }
     }
+}
+
+fun Context.plural(@PluralsRes id: Int, value: Long): String {
+    return resources.getQuantityString(id, value.toInt(), value)
 }
 
 fun String.toEpochMillis(): Long {

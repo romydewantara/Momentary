@@ -62,7 +62,7 @@ fun StoryHeader(
 
                     Image(
                         painter = painterResource(R.drawable.ic_certified),
-                        contentDescription = stringResource(R.string.cd_story),
+                        contentDescription = stringResource(R.string.cd_certified),
                         modifier = Modifier
                             .size(16.dp)
                             .offset(y = (-1).dp)

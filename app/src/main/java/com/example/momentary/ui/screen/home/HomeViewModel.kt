@@ -47,7 +47,7 @@ class HomeViewModel @Inject constructor(
     val event = _event.asSharedFlow()
 
     init {
-        fetchStories()
+        fetchStories(isRefresh = false)
     }
 
     private fun fetchStories(isRefresh: Boolean = false) {

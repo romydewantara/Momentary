@@ -2,6 +2,7 @@ package com.example.momentary.ui.navigation
 
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -63,9 +64,7 @@ fun NavGraph(
 
                         navController.popBackStack()
                     },
-                    onBack = {
-                        navController.popBackStack()
-                    }
+                    onBack = { navController.safePopBackStack() }
                 )
             }
 
@@ -92,19 +91,26 @@ fun NavGraph(
             composable(
                 route = Screen.Detail.route,
                 arguments = listOf(navArgument("storyId") { type = NavType.StringType })
-            ) {
-                val story = navController
-                    .getBackStackEntry(Screen.Home.route)
-                    .savedStateHandle
-                    .get<Story>(NavKeys.SELECTED_STORY)
+            ) { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    try {
+                        navController.getBackStackEntry(Screen.Home.route)
+                    } catch (_: IllegalArgumentException) {
+                        null
+                    }
+                }
+
+                val story = parentEntry
+                    ?.savedStateHandle
+                    ?.get<Story>(NavKeys.SELECTED_STORY)
 
                 story?.let {
                     DetailScreen(
-                        parentEntry = navController.getBackStackEntry(Screen.Home.route),
+                        parentEntry = parentEntry,
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedVisibilityScope = this,
                         story = it,
-                        onBack = { navController.popBackStack() }
+                        onBack = { navController.safePopBackStack() }
                     )
                 }
             }
@@ -117,9 +123,7 @@ fun NavGraph(
                             launchSingleTop = true
                         }
                     },
-                    onBack = {
-                        navController.popBackStack()
-                    }
+                    onBack = { navController.safePopBackStack() }
                 )
             }
         }

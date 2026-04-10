@@ -55,13 +55,19 @@ fun ImageSourceBottomSheet(
             BottomSheetItem(
                 icon = R.drawable.ic_gallery,
                 text = stringResource(R.string.add_story_add_image_source_gallery),
-                onClick = onGalleryClick
+                onClick = {
+                    onGalleryClick()
+                    onDismiss()
+                }
             )
 
             BottomSheetItem(
                 icon = R.drawable.ic_camera,
                 text = stringResource(R.string.add_story_add_image_source_camera),
-                onClick = onCameraClick
+                onClick = {
+                    onCameraClick()
+                    onDismiss()
+                }
             )
         }
     }

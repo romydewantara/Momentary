@@ -50,10 +50,17 @@ class MomentaryRepository @Inject constructor(
             }
 
             ResultState.Error(message)
-        } catch (_: Exception) {
-            ResultState.Error(
-                UiText.StringResource(R.string.error_network)
-            )
+        } catch (e: Exception) {
+            val errorMessage = e.message
+
+            val message = when {
+                errorMessage?.contains("timeout", true) == true ->
+                    UiText.StringResource(R.string.error_timeout)
+
+                else ->
+                    UiText.StringResource(R.string.error_network)
+            }
+            ResultState.Error(message)
         }
     }
 
@@ -85,10 +92,17 @@ class MomentaryRepository @Inject constructor(
             }
 
             ResultState.Error(message)
-        } catch (_: Exception) {
-            ResultState.Error(
-                UiText.StringResource(R.string.error_network)
-            )
+        } catch (e: Exception) {
+            val errorMessage = e.message
+
+            val message = when {
+                errorMessage?.contains("timeout", true) == true ->
+                    UiText.StringResource(R.string.error_timeout)
+
+                else ->
+                    UiText.StringResource(R.string.error_network)
+            }
+            ResultState.Error(message)
         }
     }
 

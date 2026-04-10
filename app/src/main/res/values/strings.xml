@@ -15,12 +15,9 @@
     <string name="register_heading">Create a new account</string>
     <string name="register_subheading">Fill in a few details below to get started. Only your name will be visible publicly.</string>
     <string name="register_button_register">Sign Up</string>
-    <string name="register_email_name">Name must be at least 3 characters</string>
     <string name="register_success">Registration successful. Please log in to continue.</string>
 
     <!-- Drawer Screen -->
-    <string name="drawer_title">Momentary</string>
-    <string name="drawer_profile_default_initial">G</string>
     <string name="drawer_profile_default_name">Guest</string>
     <string name="drawer_profile_default_email">guest@momentary.app</string>
     <string name="drawer_main_menu">Stories</string>
@@ -41,9 +38,7 @@
     <string name="add_story_add_image_source_gallery">Gallery</string>
     <string name="add_story_add_image_source_camera">Camera</string>
     <string name="add_story_description_hint">Share a little something here…</string>
-    <string name="add_story_add_location">Add location</string>
     <string name="add_story_button_upload">Upload</string>
-    <string name="add_story_button_uploading">Uploading</string>
     <string name="add_story_success">Hooray! Your story has been posted.</string>
 
     <!-- Detail Story Screen -->
@@ -51,13 +46,31 @@
 
     <!-- Time Formatter -->
     <string name="time_format_now">now</string>
-    <string name="time_format_minutes_ago">%1$d minutes ago</string>
-    <string name="time_format_an_hour_ago">An hour ago</string>
-    <string name="time_format_hours_ago">%1$d hours ago</string>
-    <string name="time_format_days_ago">%1$d days ago</string>
-    <string name="time_format_weeks_ago">%1$d weeks ago</string>
-    <string name="time_format_months_ago">%1$d months ago</string>
-    <string name="time_format_years_ago">%1$d years ago</string>
+    <string name="time_format_an_hour_ago">an hour ago</string>
+    <plurals name="time_format_minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time_format_hours_ago">
+        <item quantity="one">%1$d hour ago</item>
+        <item quantity="other">%1$d hours ago</item>
+    </plurals>
+    <plurals name="time_format_days_ago">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+    <plurals name="time_format_weeks_ago">
+        <item quantity="one">%1$d week ago</item>
+        <item quantity="other">%1$d weeks ago</item>
+    </plurals>
+    <plurals name="time_format_months_ago">
+        <item quantity="one">%1$d month ago</item>
+        <item quantity="other">%1$d months ago</item>
+    </plurals>
+    <plurals name="time_format_years_ago">
+        <item quantity="one">%1$d year ago</item>
+        <item quantity="other">%1$d years ago</item>
+    </plurals>
 
     <!-- Error Message -->
     <string name="error_email_invalid">Your email format is invalid</string>
@@ -69,17 +82,11 @@
     <string name="error_user_not_found">User not found</string>
     <string name="error_invalid_password">Invalid password</string>
     <string name="error_unknown">Something went wrong, please try again later</string>
-    <string name="error_story_load">Failed to load stories</string>
-    <string name="error_load_story_detail">Failed to load story details</string>
-    <string name="error_upload_new_story">Failed to upload story</string>
     <string name="error_unauthorized">Sorry, you’re not authorized to access this.</string>
     <string name="error_network">Connection failed, check your network and try again</string>
 
     <!-- Content Description and Tag -->
-    <string name="cd_clear_email">Clear email</string>
-    <string name="cd_toggle_password">Toggle password visibility</string>
     <string name="cd_header">Header</string>
-    <string name="cd_image">Image</string>
     <string name="cd_button_menu">Menu</string>
     <string name="cd_button_language">Language</string>
     <string name="cd_button_logout">Logout</string>
@@ -89,8 +96,6 @@
     <string name="cd_story_image">Image</string>
     <string name="cd_story_item_public">Public</string>
     <string name="cd_add_image">Add Image</string>
-    <string name="cd_camera">Camera</string>
-    <string name="cd_gallery">Gallery</string>
     <string name="tag_register">register</string>
 
     <!-- StackView Widget -->
