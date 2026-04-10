@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
+import com.example.momentary.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,42 +21,47 @@ private const val WEEK = 7 * DAY
 private const val MONTH = 30 * DAY
 private const val YEAR = 365 * DAY
 
-fun Long.toRelativeTime(now: Long = System.currentTimeMillis()): String {
+fun Long.toRelativeTime(now: Long = System.currentTimeMillis(), context: Context): String {
     val diff = now - this
 
     return when {
-        diff < MINUTE -> "Just now"
+        diff < MINUTE -> context.getString(R.string.time_format_now)
 
         diff < HOUR -> {
             val m = diff / MINUTE
-            if (m == 1L) "1 minute ago" else "$m minutes ago"
+            if (m == 1L) context.getString(R.string.time_format_minutes_ago, 1)
+            else context.getString(R.string.time_format_minutes_ago, m)
         }
 
-        diff < 2 * HOUR -> "An hour ago"
+        diff < 2 * HOUR -> context.getString(R.string.time_format_an_hour_ago)
 
         diff < DAY -> {
             val h = diff / HOUR
-            "$h hours ago"
+            context.getString(R.string.time_format_hours_ago, h)
         }
 
         diff < WEEK -> {
             val d = diff / DAY
-            if (d == 1L) "1 day ago" else "$d days ago"
+            if (d == 1L) context.getString(R.string.time_format_days_ago, 1)
+            else context.getString(R.string.time_format_days_ago, d)
         }
 
         diff < MONTH -> {
             val w = diff / WEEK
-            if (w == 1L) "1 week ago" else "$w weeks ago"
+            if (w == 1L) context.getString(R.string.time_format_weeks_ago, 1)
+            else context.getString(R.string.time_format_weeks_ago, w)
         }
 
         diff < YEAR -> {
             val mo = diff / MONTH
-            if (mo == 1L) "1 month ago" else "$mo months ago"
+            if (mo == 1L) context.getString(R.string.time_format_months_ago, 1)
+            else context.getString(R.string.time_format_months_ago, mo)
         }
 
         else -> {
             val y = diff / YEAR
-            if (y == 1L) "1 year ago" else "$y years ago"
+            if (y == 1L) context.getString(R.string.time_format_years_ago, 1)
+            else context.getString(R.string.time_format_years_ago, y)
         }
     }
 }

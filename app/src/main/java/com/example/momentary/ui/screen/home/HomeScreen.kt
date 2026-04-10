@@ -86,6 +86,7 @@ fun HomeScreen(
 
     ModalNavigationDrawer(
         drawerState = drawerState,
+        gesturesEnabled = drawerState.isClosed.not(),
         drawerContent = {
             AppDrawer(
                 name = session.name ?: stringResource(R.string.drawer_profile_default_name),
@@ -202,7 +203,8 @@ fun HomeScreen(
                                         val isVerified =
                                             story.name == Constants.OFFICIAL_ACCOUNT_NAME || isOwnStory
                                         val timeText = remember(story.createdAt) {
-                                            story.createdAt.toEpochMillis().toRelativeTime()
+                                            story.createdAt.toEpochMillis()
+                                                .toRelativeTime(context = context)
                                         }
 
                                         Column {

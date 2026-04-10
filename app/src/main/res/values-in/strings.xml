@@ -52,8 +52,12 @@
     <!-- Time Formatter -->
     <string name="time_format_now">baru saja</string>
     <string name="time_format_minutes_ago">%1$d menit yang lalu</string>
+    <string name="time_format_an_hour_ago">Sejam yang lalu</string>
     <string name="time_format_hours_ago">%1$d jam yang lalu</string>
     <string name="time_format_days_ago">%1$d hari yang lalu</string>
+    <string name="time_format_weeks_ago">%1$d minggu yang lalu</string>
+    <string name="time_format_months_ago">%1$d bulan yang lalu</string>
+    <string name="time_format_years_ago">%1$d tahun yang lalu</string>
 
     <!-- Error Message -->
     <string name="error_email_invalid">Format email tidak valid</string>

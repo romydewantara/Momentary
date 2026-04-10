@@ -52,8 +52,12 @@
     <!-- Time Formatter -->
     <string name="time_format_now">now</string>
     <string name="time_format_minutes_ago">%1$d minutes ago</string>
+    <string name="time_format_an_hour_ago">An hour ago</string>
     <string name="time_format_hours_ago">%1$d hours ago</string>
     <string name="time_format_days_ago">%1$d days ago</string>
+    <string name="time_format_weeks_ago">%1$d weeks ago</string>
+    <string name="time_format_months_ago">%1$d months ago</string>
+    <string name="time_format_years_ago">%1$d years ago</string>
 
     <!-- Error Message -->
     <string name="error_email_invalid">Your email format is invalid</string>

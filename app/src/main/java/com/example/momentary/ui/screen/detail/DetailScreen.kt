@@ -52,7 +52,7 @@ fun DetailScreen(
     val ratio = viewModel.getAspectRatio(story.id)
     val location = viewModel.locationMap[story.id].orEmpty()
     val timeText = remember(story.createdAt) {
-        story.createdAt.toEpochMillis().toRelativeTime()
+        story.createdAt.toEpochMillis().toRelativeTime(context = context)
     }
 
     LaunchedEffect(Unit) {
