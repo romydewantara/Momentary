@@ -43,11 +43,14 @@ fun NavGraph(
             composable(Screen.Login.route) { backStackEntry ->
                 LoginScreen(
                     backStackEntry = backStackEntry,
-                    onLoginSuccess = {
+                    onLoginSuccess = { message ->
                         navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Login.route) { inclusive = true }
                             launchSingleTop = true
                         }
+
+                        navController.getBackStackEntry(Screen.Home.route)
+                            .savedStateHandle[NavKeys.HOME_SUCCESS_MESSAGE] = message
                     },
                     navigateToRegister = {
                         navController.navigate(Screen.Register.route)
@@ -68,8 +71,9 @@ fun NavGraph(
                 )
             }
 
-            composable(Screen.Home.route) {
+            composable(Screen.Home.route) { backStackEntry ->
                 HomeScreen(
+                    backStackEntry = backStackEntry,
                     sharedTransitionScope = this@SharedTransitionLayout,
                     animatedVisibilityScope = this,
                     onLogout = {
@@ -117,11 +121,14 @@ fun NavGraph(
 
             composable(Screen.AddStory.route) {
                 AddStoryScreen(
-                    onUploadSuccess = {
+                    onUploadSuccess = { message ->
                         navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Home.route) { inclusive = true }
                             launchSingleTop = true
                         }
+
+                        navController.getBackStackEntry(Screen.Home.route)
+                            .savedStateHandle[NavKeys.HOME_SUCCESS_MESSAGE] = message
                     },
                     onBack = { navController.safePopBackStack() }
                 )

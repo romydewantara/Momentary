@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,9 +40,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.CustomSnackBar
+import com.example.momentary.ui.navigation.NavKeys
 import com.example.momentary.ui.screen.home.component.AppDrawer
 import com.example.momentary.ui.screen.home.component.EmptyState
 import com.example.momentary.ui.screen.home.component.ErrorState
@@ -56,6 +59,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    backStackEntry: NavBackStackEntry,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onLogout: () -> Unit,
@@ -64,15 +68,33 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val listState = rememberLazyListState()
 
     val snackBarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
     var isErrorSnackBar by remember { mutableStateOf(false) }
 
+    val savedStateHandle = backStackEntry.savedStateHandle
+    val homeSuccessMessage = savedStateHandle.get<String>(NavKeys.HOME_SUCCESS_MESSAGE)
+
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val session by viewModel.session.collectAsState()
+
+    LaunchedEffect(homeSuccessMessage) {
+        homeSuccessMessage?.let {
+            snackBarHostState.showSnackbar(message = it)
+            savedStateHandle.remove<String>(NavKeys.HOME_SUCCESS_MESSAGE)
+        }
+    }
+
+    LaunchedEffect(state.scrollToTopTrigger) {
+        if (state.scrollToTopTrigger && state.stories.isNotEmpty()) {
+            listState.animateScrollToItem(0)
+            viewModel.resetScrollTrigger()
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
@@ -194,7 +216,9 @@ fun HomeScreen(
                             }
 
                             else -> {
-                                LazyColumn {
+                                LazyColumn(
+                                    state = listState
+                                ) {
                                     itemsIndexed(
                                         items = stories,
                                         key = { _, it -> it.id }

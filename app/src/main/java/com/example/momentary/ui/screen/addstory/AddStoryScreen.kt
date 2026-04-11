@@ -35,7 +35,7 @@ import com.yalantis.ucrop.UCrop
 @Composable
 fun AddStoryScreen(
     modifier: Modifier = Modifier,
-    onUploadSuccess: () -> Unit,
+    onUploadSuccess: (String) -> Unit,
     onBack: () -> Unit,
     viewModel: AddStoryViewModel = hiltViewModel()
 ) {
@@ -47,6 +47,7 @@ fun AddStoryScreen(
     var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
     val sheetState = rememberModalBottomSheetState()
     val focusManager = LocalFocusManager.current
+    val addStorySuccessMessage = stringResource(R.string.add_story_success)
 
     val cropLauncher =
         rememberLauncherForActivityResult(
@@ -98,7 +99,7 @@ fun AddStoryScreen(
     }
 
     LaunchedEffect(state.isSuccess) {
-        if (state.isSuccess) onUploadSuccess()
+        if (state.isSuccess) onUploadSuccess(addStorySuccessMessage)
     }
 
     val hideBottomSheet = remember {

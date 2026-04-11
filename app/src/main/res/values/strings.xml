@@ -10,6 +10,7 @@
     <string name="login_button_login">Sign In</string>
     <string name="login_register_text">Don’t have an account?</string>
     <string name="login_register_text_link">Register here</string>
+    <string name="login_success">Login successful. Let\'s get started!</string>
 
     <!-- Register Screen -->
     <string name="register_heading">Create a new account</string>
@@ -77,7 +78,7 @@
     <string name="error_password">Password must be at least 8 characters</string>
     <string name="error_name">Name must be at least 3 characters</string>
     <string name="error_email_already_taken">Looks like this email is already taken. Try another one or sign in instead.</string>
-    <string name="error_timeout">Request timed out. Check your internet connection and try again.</string>
+    <string name="error_timeout">Server is temporarily unavailable. Please try again later.</string>
     <string name="error_must_valid_email">The email entered must be a valid email address.</string>
     <string name="error_user_not_found">User not found</string>
     <string name="error_invalid_password">Invalid password</string>

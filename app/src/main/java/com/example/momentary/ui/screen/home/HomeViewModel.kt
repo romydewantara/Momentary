@@ -72,7 +72,8 @@ class HomeViewModel @Inject constructor(
                             stories = result.data,
                             isLoading = false,
                             isRefreshing = false,
-                            error = null
+                            error = null,
+                            scrollToTopTrigger = isRefresh
                         )
                     }
                 }
@@ -86,7 +87,8 @@ class HomeViewModel @Inject constructor(
                                 stories = emptyList(),
                                 isLoading = false,
                                 isRefreshing = false,
-                                error = result.message
+                                error = result.message,
+                                scrollToTopTrigger = false
                             )
                         }
                     } else {
@@ -94,6 +96,7 @@ class HomeViewModel @Inject constructor(
                             it.copy(
                                 isLoading = false,
                                 isRefreshing = false,
+                                scrollToTopTrigger = false
                             )
                         }
 
@@ -106,6 +109,12 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun resetScrollTrigger() {
+        _state.update {
+            it.copy(scrollToTopTrigger = false)
         }
     }
 

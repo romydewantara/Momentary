@@ -10,6 +10,7 @@
     <string name="login_button_login">Masuk</string>
     <string name="login_register_text">Belum punya akun?</string>
     <string name="login_register_text_link">Daftar di sini</string>
+    <string name="login_success">Berhasil masuk. Ayo mulai!</string>
 
     <!-- Register Screen -->
     <string name="register_heading">Buat akun baru</string>
@@ -71,7 +72,7 @@
     <string name="error_password">Kata sandi minimal terdiri dari 8 karakter</string>
     <string name="error_name">Nama minimal terdiri dari 3 karakter</string>
     <string name="error_email_already_taken">Sepertinya email ini sudah digunakan. Coba yang lain atau langsung masuk saja.</string>
-    <string name="error_timeout">Permintaan timeout. Pastikan koneksi stabil, lalu coba lagi.</string>
+    <string name="error_timeout">Maaf, server sedang sibuk. Silakan coba lagi beberapa saat.</string>
     <string name="error_must_valid_email">Email yang dimasukkan harus berupa alamat email yang valid.</string>
     <string name="error_user_not_found">Pengguna tidak ditemukan</string>
     <string name="error_invalid_password">Kata sandi salah</string>

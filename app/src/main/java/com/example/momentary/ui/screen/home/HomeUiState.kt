@@ -7,5 +7,6 @@ data class HomeUiState(
     val stories: List<Story> = emptyList(),
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
-    val error: UiText? = null
+    val error: UiText? = null,
+    val scrollToTopTrigger: Boolean = false
 )

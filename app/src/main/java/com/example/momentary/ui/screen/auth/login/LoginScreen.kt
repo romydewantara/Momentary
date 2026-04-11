@@ -47,7 +47,7 @@ import com.example.momentary.ui.theme.Tertiary
 fun LoginScreen(
     modifier: Modifier = Modifier,
     backStackEntry: NavBackStackEntry,
-    onLoginSuccess: () -> Unit,
+    onLoginSuccess: (String) -> Unit,
     navigateToRegister: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
@@ -62,6 +62,7 @@ fun LoginScreen(
     val savedStateHandle = backStackEntry.savedStateHandle
     val registerSuccess = savedStateHandle.get<Boolean>(NavKeys.REGISTER_SUCCESS)
     val successMessage = stringResource(R.string.register_success)
+    val loginSuccessMessage = stringResource(R.string.login_success)
 
     LaunchedEffect(registerSuccess) {
         if (registerSuccess == true) {
@@ -76,7 +77,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            onLoginSuccess()
+            onLoginSuccess(loginSuccessMessage)
         }
     }
 
