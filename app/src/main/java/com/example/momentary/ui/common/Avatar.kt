@@ -15,7 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.momentary.R
-import com.example.momentary.utils.Constants
+import com.example.momentary.utils.AppConstants
+import com.example.momentary.utils.NetworkConstants
 
 @Composable
 fun Avatar(
@@ -24,10 +25,10 @@ fun Avatar(
 ) {
     if (isOwnStory) {
         AsyncImage(
-            model = if (name == Constants.OFFICIAL_ACCOUNT_NAME) {
+            model = if (name == AppConstants.OFFICIAL_ACCOUNT_NAME) {
                 R.drawable.ic_launcher_foreground
             } else {
-                Constants.PHOTO_URL
+                NetworkConstants.PHOTO_URL
             },
             contentDescription = stringResource(R.string.cd_add_image),
             modifier = Modifier

@@ -38,7 +38,10 @@ fun ImagePicker(
             .height(220.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .clickable { onClick() },
+            .clickable(
+                enabled = !isLoading,
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center
     ) {
         if (imageUri != null) {

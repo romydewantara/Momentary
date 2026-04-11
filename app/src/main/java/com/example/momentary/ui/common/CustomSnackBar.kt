@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.momentary.utils.SemanticColors
+
 
 @Composable
 fun CustomSnackBar(
@@ -28,13 +30,13 @@ fun CustomSnackBar(
     val backgroundColor = if (isError) {
         colorScheme.errorContainer
     } else {
-        colorScheme.surfaceVariant
+        SemanticColors.successContainer
     }
 
     val contentColor = if (isError) {
         colorScheme.onErrorContainer
     } else {
-        colorScheme.onSurfaceVariant
+        SemanticColors.onSuccessContainer
     }
 
     val icon = if (isError) Icons.Default.Close else Icons.Default.Check

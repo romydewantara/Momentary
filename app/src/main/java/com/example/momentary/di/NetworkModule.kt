@@ -1,7 +1,7 @@
 package com.example.momentary.di
 
 import com.example.momentary.data.remote.ApiService
-import com.example.momentary.utils.Constants
+import com.example.momentary.utils.NetworkConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +27,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(NetworkConstants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -121,7 +121,10 @@ fun AddStoryScreen(
         bottomBar = {
             UploadButton(
                 state = state,
-                onClick = viewModel::uploadStory
+                onClick = {
+                    viewModel.uploadStory()
+                    focusManager.clearFocus()
+                }
             )
         }
     ) { padding ->

@@ -33,7 +33,7 @@ import com.example.momentary.ui.common.StoryImage
 import com.example.momentary.ui.common.StoryTopBar
 import com.example.momentary.ui.screen.detail.component.StoryHeader
 import com.example.momentary.ui.screen.home.HomeViewModel
-import com.example.momentary.utils.Constants
+import com.example.momentary.utils.AppConstants
 import com.example.momentary.utils.toEpochMillis
 import com.example.momentary.utils.toRelativeTime
 
@@ -76,7 +76,7 @@ fun DetailScreen(
 
             val isOwnStory = story.name == session.name
             val isVerified =
-                story.name == Constants.OFFICIAL_ACCOUNT_NAME || isOwnStory
+                story.name == AppConstants.OFFICIAL_ACCOUNT_NAME || isOwnStory
             StoryHeader(
                 name = story.name,
                 isOwnStory = isOwnStory,
