@@ -5,7 +5,6 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -26,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
@@ -46,11 +45,12 @@ fun DetailScreen(
     onBack: () -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel(parentEntry)
-    val session by viewModel.session.collectAsState()
-    val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val session by viewModel.session.collectAsStateWithLifecycle()
 
-    val ratio = viewModel.getAspectRatio(story.id)
-    val location = viewModel.locationMap[story.id].orEmpty()
+    val context = LocalContext.current
+    val ratio = state.aspectRatioMap[story.id]
+    val location = state.locationMap[story.id].orEmpty()
     val timeText = remember(story.createdAt) {
         story.createdAt.toEpochMillis().toRelativeTime(context = context)
     }
@@ -122,9 +122,5 @@ fun DetailScreen(
     }
 }
 
-fun Modifier.storyImageSize(ratio: Float?): Modifier {
-    return this.then(
-        if (ratio != null) Modifier.aspectRatio(ratio)
-        else Modifier.fillMaxHeight()
-    )
-}
+fun Modifier.storyImageSize(ratio: Float?): Modifier =
+    ratio?.let { aspectRatio(ratio) } ?: height(220.dp)

@@ -1,7 +1,6 @@
 package com.example.momentary.ui.screen.home
 
 import android.content.Context
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.momentary.data.model.Story
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -43,13 +41,7 @@ class HomeViewModel @Inject constructor(
         initialValue = UserSession(null, null, null)
     )
 
-    private val _aspectRatioMap = MutableStateFlow<Map<String, Float>>(emptyMap())
-    val aspectRatioMap = _aspectRatioMap.asStateFlow()
-
-    private val _locationMap = mutableStateMapOf<String, String>()
-    val locationMap: Map<String, String> = _locationMap
-
-    private val loadingSet = mutableSetOf<String>()
+    private val resolvingSet = mutableSetOf<String>()
 
     private val _event = MutableSharedFlow<SnackBarEvent>()
     val event = _event.asSharedFlow()
@@ -79,12 +71,16 @@ class HomeViewModel @Inject constructor(
             )) {
                 is ResultState.Success -> {
                     val sessionValue = session.value
+                    val stories = result.data
                     val uiModel = mapToUiModel(
-                        stories = result.data,
+                        stories = stories,
                         session = sessionValue,
                         context = context
                     )
 
+                    stories.forEach { story ->
+                        resolveLocation(context, story)
+                    }
                     _state.update {
                         it.copy(
                             stories = uiModel,
@@ -149,8 +145,7 @@ class HomeViewModel @Inject constructor(
                 story = story,
                 isOwnStory = isOwnStory,
                 isVerified = isVerified,
-                timeText = timeText,
-                locationText = _locationMap[story.id]
+                timeText = timeText
             )
         }
     }
@@ -166,28 +161,36 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setAspectRatio(id: String, ratio: Float) {
-        if (_aspectRatioMap.value[id] == null) {
-            _aspectRatioMap.value += (id to ratio)
-        }
-    }
+        val current = _state.value.aspectRatioMap
+        if (current[id] != null) return
 
-    fun getAspectRatio(id: String): Float? {
-        return aspectRatioMap.value[id]
+        _state.update {
+            it.copy(
+                aspectRatioMap = current + (id to ratio)
+            )
+        }
     }
 
     fun resolveLocation(context: Context, story: Story) {
         val lat = story.lat
         val lon = story.lon
+        val id = story.id
 
         if (lat == null || lon == null) return
-        if (_locationMap.containsKey(story.id)) return
-        if (loadingSet.contains(story.id)) return
 
-        loadingSet.add(story.id)
+        val current = _state.value.locationMap
+        if (current.containsKey(id)) return
+        if (resolvingSet.contains(id)) return
+
+        resolvingSet.add(id)
 
         context.getCityCountrySafe(lat, lon) { result ->
-            _locationMap[story.id] = result
-            loadingSet.remove(story.id)
+            _state.update {
+                it.copy(
+                    locationMap = it.locationMap + (id to result)
+                )
+            }
+            resolvingSet.remove(id)
         }
     }
 

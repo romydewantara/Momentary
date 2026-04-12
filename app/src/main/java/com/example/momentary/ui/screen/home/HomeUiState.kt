@@ -6,6 +6,8 @@ import com.example.momentary.ui.screen.home.model.StoryUiModel
 
 data class HomeUiState(
     val stories: List<StoryUiModel> = emptyList(),
+    val locationMap: Map<String, String> = emptyMap(),
+    val aspectRatioMap: Map<String, Float> = emptyMap(),
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val error: UiText? = null,

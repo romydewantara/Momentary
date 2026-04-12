@@ -7,6 +7,5 @@ data class StoryUiModel(
     val story: Story,
     val isOwnStory: Boolean,
     val isVerified: Boolean,
-    val timeText: String,
-    val locationText: String? = null
+    val timeText: String
 )

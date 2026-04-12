@@ -222,7 +222,7 @@ fun HomeScreen(
                                         items = stories,
                                         key = { _, it -> it.id }
                                     ) { index, item ->
-
+                                        val locationText = state.locationMap[item.id]
                                         Column {
                                             StoryItem(
                                                 id = item.story.id,
@@ -231,13 +231,10 @@ fun HomeScreen(
                                                 photoUrl = item.story.photoUrl,
                                                 isVerified = item.isVerified,
                                                 isOwnStory = item.isOwnStory,
-                                                locationText = viewModel.locationMap[item.id],
+                                                locationText = locationText,
                                                 timeText = item.timeText,
                                                 sharedTransitionScope = sharedTransitionScope,
                                                 animatedVisibilityScope = animatedVisibilityScope,
-                                                onResolveLocation = {
-                                                    viewModel.resolveLocation(context, item.story)
-                                                },
                                                 onImageLoaded = { ratio ->
                                                     viewModel.setAspectRatio(item.id, ratio)
                                                 },
