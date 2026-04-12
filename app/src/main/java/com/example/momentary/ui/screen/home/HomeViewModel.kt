@@ -10,13 +10,19 @@ import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.SnackBarEvent
 import com.example.momentary.ui.screen.home.component.DrawerItem
+import com.example.momentary.ui.screen.home.model.StoryUiModel
+import com.example.momentary.utils.AppConstants
 import com.example.momentary.utils.getCityCountrySafe
+import com.example.momentary.utils.toEpochMillis
+import com.example.momentary.utils.toRelativeTime
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,7 +30,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MomentaryRepository
+    private val repository: MomentaryRepository,
+    @param:ApplicationContext private val context: Context,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -36,8 +43,8 @@ class HomeViewModel @Inject constructor(
         initialValue = UserSession(null, null, null)
     )
 
-    private val _aspectRatios = mutableStateMapOf<String, Float>()
-    val aspectRatios: Map<String, Float> = _aspectRatios
+    private val _aspectRatioMap = MutableStateFlow<Map<String, Float>>(emptyMap())
+    val aspectRatioMap = _aspectRatioMap.asStateFlow()
 
     private val _locationMap = mutableStateMapOf<String, String>()
     val locationMap: Map<String, String> = _locationMap
@@ -67,13 +74,20 @@ class HomeViewModel @Inject constructor(
 
             when (val result = repository.getStories(
                 page = 1,
-                size = 20,
+                size = 10,
                 location = 0
             )) {
                 is ResultState.Success -> {
+                    val sessionValue = session.value
+                    val uiModel = mapToUiModel(
+                        stories = result.data,
+                        session = sessionValue,
+                        context = context
+                    )
+
                     _state.update {
                         it.copy(
-                            stories = result.data,
+                            stories = uiModel,
                             isLoading = false,
                             isRefreshing = false,
                             error = null,
@@ -116,6 +130,31 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun mapToUiModel(
+        stories: List<Story>,
+        session: UserSession,
+        context: Context
+    ): List<StoryUiModel> {
+        return stories.map { story ->
+            val isOwnStory = story.name == session.name
+            val isVerified =
+                story.name == AppConstants.OFFICIAL_ACCOUNT_NAME || isOwnStory
+
+            val timeText = story.createdAt
+                .toEpochMillis()
+                .toRelativeTime(context = context)
+
+            StoryUiModel(
+                id = story.id,
+                story = story,
+                isOwnStory = isOwnStory,
+                isVerified = isVerified,
+                timeText = timeText,
+                locationText = _locationMap[story.id]
+            )
+        }
+    }
+
     fun resetScrollTrigger() {
         _state.update {
             it.copy(scrollToTopTrigger = false)
@@ -127,11 +166,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setAspectRatio(id: String, ratio: Float) {
-        _aspectRatios[id] = ratio
+        if (_aspectRatioMap.value[id] == null) {
+            _aspectRatioMap.value += (id to ratio)
+        }
     }
 
     fun getAspectRatio(id: String): Float? {
-        return aspectRatios[id]
+        return aspectRatioMap.value[id]
     }
 
     fun resolveLocation(context: Context, story: Story) {

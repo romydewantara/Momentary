@@ -28,36 +28,36 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.momentary.R
-import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.Avatar
 import com.example.momentary.ui.common.StoryImage
-import com.example.momentary.ui.screen.home.HomeViewModel
 
 @Composable
 fun StoryItem(
     modifier: Modifier = Modifier,
-    story: Story,
+    id: String,
+    name: String,
+    description: String,
+    photoUrl: String,
     isVerified: Boolean,
     isOwnStory: Boolean,
+    locationText: String?,
     timeText: String,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    onClick: () -> Unit,
-    viewModel: HomeViewModel,
+    onResolveLocation: () -> Unit,
+    onImageLoaded: (Float) -> Unit,
+    onClick: () -> Unit
 ) {
-    val context = LocalContext.current
-    val locationText = viewModel.locationMap[story.id]
     val hasLocation = !locationText.isNullOrEmpty()
 
-    LaunchedEffect(story.id) {
-        viewModel.resolveLocation(context, story)
+    LaunchedEffect(id) {
+        onResolveLocation()
     }
 
     Row(
@@ -72,7 +72,7 @@ fun StoryItem(
         ) {
 
             Avatar(
-                name = story.name,
+                name = name,
                 isOwnStory = isOwnStory
             )
 
@@ -98,7 +98,7 @@ fun StoryItem(
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = story.name,
+                        text = name,
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.Black
                         )
@@ -139,7 +139,7 @@ fun StoryItem(
                     }
                 } else {
                     Text(
-                        text = story.description,
+                        text = description,
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
@@ -151,7 +151,7 @@ fun StoryItem(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = story.description,
+                    text = description,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -191,16 +191,14 @@ fun StoryItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 StoryImage(
-                    id = story.id,
-                    photoUrl = story.photoUrl,
-                    sharedTransitionScope = sharedTransitionScope,
-                    animatedVisibilityScope = animatedVisibilityScope,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(220.dp),
-                    onImageLoaded = { ratio ->
-                        viewModel.setAspectRatio(story.id, ratio)
-                    }
+                    id = id,
+                    photoUrl = photoUrl,
+                    sharedTransitionScope = sharedTransitionScope,
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    onImageLoaded = onImageLoaded
                 )
             }
         }
