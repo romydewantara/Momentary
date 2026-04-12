@@ -36,14 +36,19 @@ fun AddStoryContent(
             ImagePicker(
                 imageUri = state.imageUri,
                 isLoading = state.isLoading,
-                onClick = onImageClick
+                onClick = {
+                    onImageClick()
+                    onClearFocus()
+                }
             )
 
             Spacer(Modifier.height(20.dp))
 
-            DescriptionInput(
+            StoryDescriptionInput(
                 value = state.description,
-                onValueChange = onDescriptionChange
+                onValueChange = onDescriptionChange,
+                name = "romydewantara",
+                isOwnStory = true
             )
         }
     }

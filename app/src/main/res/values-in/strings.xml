@@ -10,7 +10,7 @@
     <string name="login_button_login">Masuk</string>
     <string name="login_register_text">Belum punya akun?</string>
     <string name="login_register_text_link">Daftar di sini</string>
-    <string name="login_success">Berhasil masuk. Ayo mulai!</string>
+    <string name="login_success">Yeay! Kamu berhasil masuk. Ayo buat cerita baru!</string>
 
     <!-- Register Screen -->
     <string name="register_heading">Buat akun baru</string>
@@ -24,6 +24,10 @@
     <string name="drawer_main_menu">Momen</string>
     <string name="drawer_change_language">Ganti bahasa</string>
     <string name="drawer_logout">Keluar</string>
+    <string name="drawer_logout_confirm_header">Konfirmasi Logout</string>
+    <string name="drawer_logout_confirm_body">Apakah kamu yakin ingin keluar dari akun ini?</string>
+    <string name="drawer_logout_confirm_positive">Ya, Keluar</string>
+    <string name="drawer_logout_confirm_negative">Batal</string>
     <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
     <string name="drawer_app_build">v1.0.0.2026.03.10 – DEV</string>
 
@@ -38,7 +42,8 @@
     <string name="add_story_add_image_select_source">Pilih sumber gambar</string>
     <string name="add_story_add_image_source_gallery">Galeri</string>
     <string name="add_story_add_image_source_camera">Kamera</string>
-    <string name="add_story_description_hint">Ceritakan sedikit di sini…</string>
+    <string name="add_story_description_hint">Tulis sesuatu tentang ceritamu…</string>
+    <string name="add_story_description_visibility">Publik</string>
     <string name="add_story_button_upload">Unggah</string>
     <string name="add_story_success">Yeay! Ceritamu berhasil diposting.</string>
 
@@ -75,7 +80,7 @@
     <string name="error_timeout">Maaf, server sedang sibuk. Silakan coba lagi beberapa saat.</string>
     <string name="error_must_valid_email">Email yang dimasukkan harus berupa alamat email yang valid.</string>
     <string name="error_user_not_found">Pengguna tidak ditemukan</string>
-    <string name="error_invalid_password">Kata sandi salah</string>
+    <string name="error_invalid_password">Maaf, kata sandi keliru. Coba periksa kembali ya!</string>
     <string name="error_unknown">Terjadi kesalahan, silakan coba lagi nanti</string>
     <string name="error_unauthorized">Maaf, kamu tidak memiliki akses ke fitur ini.</string>
     <string name="error_network">Gagal terhubung ke jaringan, coba periksa koneksi kamu lalu muat ulang.</string>

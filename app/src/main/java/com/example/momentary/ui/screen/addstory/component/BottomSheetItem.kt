@@ -1,7 +1,12 @@
 package com.example.momentary.ui.screen.addstory.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,17 +14,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.momentary.R
 
@@ -52,46 +62,80 @@ fun ImageSourceBottomSheet(
 
             Spacer(Modifier.height(16.dp))
 
-            BottomSheetItem(
-                icon = R.drawable.ic_gallery,
-                text = stringResource(R.string.add_story_add_image_source_gallery),
-                onClick = {
-                    onGalleryClick()
-                    onDismiss()
-                }
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BottomSheetIconItem(
+                    icon = R.drawable.ic_gallery,
+                    text = stringResource(R.string.add_story_add_image_source_gallery),
+                    onClick = {
+                        onGalleryClick()
+                        onDismiss()
+                    }
+                )
 
-            BottomSheetItem(
-                icon = R.drawable.ic_camera,
-                text = stringResource(R.string.add_story_add_image_source_camera),
-                onClick = {
-                    onCameraClick()
-                    onDismiss()
-                }
-            )
+                BottomSheetIconItem(
+                    icon = R.drawable.ic_camera,
+                    text = stringResource(R.string.add_story_add_image_source_camera),
+                    onClick = {
+                        onCameraClick()
+                        onDismiss()
+                    }
+                )
+            }
         }
     }
 }
 
 @Composable
-fun BottomSheetItem(
+fun BottomSheetIconItem(
     icon: Int,
     text: String,
     onClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val rippleColor = Color.Black.copy(alpha = 0.2f)
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(8.dp)
     ) {
-        Image(
-            painter = painterResource(icon),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp)
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .clickable(
+                    onClick = onClick,
+                    interactionSource = interactionSource,
+                    indication = null
+                )
+                .then(
+                    Modifier.background(
+                        if (isPressed) rippleColor else Color.Transparent,
+                        CircleShape
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(icon),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center
         )
-        Spacer(Modifier.width(16.dp))
-        Text(text)
     }
 }

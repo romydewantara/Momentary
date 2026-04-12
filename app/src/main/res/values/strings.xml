@@ -24,6 +24,10 @@
     <string name="drawer_main_menu">Stories</string>
     <string name="drawer_change_language">Change language</string>
     <string name="drawer_logout">Log out</string>
+    <string name="drawer_logout_confirm_header">Logout Confirmation</string>
+    <string name="drawer_logout_confirm_body">Are you sure you want to log out of your account?</string>
+    <string name="drawer_logout_confirm_positive">Log out</string>
+    <string name="drawer_logout_confirm_negative">Cancel</string>
     <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
     <string name="drawer_app_build">v1.0.0.2026.03.10 – DEV</string>
 
@@ -38,7 +42,8 @@
     <string name="add_story_add_image_select_source">Select Image Source</string>
     <string name="add_story_add_image_source_gallery">Gallery</string>
     <string name="add_story_add_image_source_camera">Camera</string>
-    <string name="add_story_description_hint">Share a little something here…</string>
+    <string name="add_story_description_hint">Write a short story here…</string>
+    <string name="add_story_description_visibility">Public</string>
     <string name="add_story_button_upload">Upload</string>
     <string name="add_story_success">Hooray! Your story has been posted.</string>
 

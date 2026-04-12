@@ -27,7 +27,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
@@ -67,7 +67,7 @@ fun HomeScreen(
     onNavigateToAddStory: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
     val snackBarHostState = remember { SnackbarHostState() }
@@ -80,7 +80,7 @@ fun HomeScreen(
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    val session by viewModel.session.collectAsState()
+    val session by viewModel.session.collectAsStateWithLifecycle()
 
     LaunchedEffect(homeSuccessMessage) {
         homeSuccessMessage?.let {
@@ -97,12 +97,19 @@ fun HomeScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.event.collect { event ->
-            isErrorSnackBar = event.isError
+        launch {
+            viewModel.event.collect { event ->
+                isErrorSnackBar = event.isError
 
-            snackBarHostState.showSnackbar(
-                message = event.message.asString(context)
-            )
+                snackBarHostState.showSnackbar(
+                    message = event.message.asString(context)
+                )
+            }
+        }
+        launch {
+            viewModel.logoutEvent.collect {
+                onLogout()
+            }
         }
     }
 
@@ -123,12 +130,7 @@ fun HomeScreen(
                     }
                     context.startActivity(intent)
                 },
-                onLogout = {
-                    scope.launch {
-                        drawerState.close()
-                        viewModel.logout(onLogout)
-                    }
-                }
+                viewModel = viewModel
             )
         }
     ) {

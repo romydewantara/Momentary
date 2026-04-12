@@ -9,6 +9,7 @@ import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.SnackBarEvent
+import com.example.momentary.ui.screen.home.component.DrawerItem
 import com.example.momentary.utils.getCityCountrySafe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -45,6 +46,9 @@ class HomeViewModel @Inject constructor(
 
     private val _event = MutableSharedFlow<SnackBarEvent>()
     val event = _event.asSharedFlow()
+
+    private val _logoutEvent = MutableSharedFlow<Unit>()
+    val logoutEvent = _logoutEvent.asSharedFlow()
 
     init {
         fetchStories(isRefresh = false)
@@ -146,10 +150,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun logout(onLogout: () -> Unit) {
+    fun onDrawerItemSelected(item: DrawerItem) {
+        _state.update {
+            it.copy(
+                selectedDrawerItem = item,
+                showLogoutDialog = item == DrawerItem.LOGOUT
+            )
+        }
+    }
+
+    fun dismissLogoutDialog() {
+        _state.update {
+            it.copy(showLogoutDialog = false)
+        }
+    }
+
+    fun confirmLogout() {
         viewModelScope.launch {
             repository.logout()
-            onLogout()
+            _state.update { it.copy(showLogoutDialog = false) }
+            _logoutEvent.emit(Unit)
         }
     }
 }
