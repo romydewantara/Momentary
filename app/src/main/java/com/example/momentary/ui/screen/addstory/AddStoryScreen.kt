@@ -12,7 +12,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.momentary.R
 import com.example.momentary.ui.common.CustomSnackBar
 import com.example.momentary.ui.common.StoryTopBar
@@ -39,14 +39,19 @@ fun AddStoryScreen(
     onBack: () -> Unit,
     viewModel: AddStoryViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val session by viewModel.session.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
     val snackBarHostState = remember { SnackbarHostState() }
     var isErrorSnackBar by remember { mutableStateOf(false) }
+
     var showBottomSheet by remember { mutableStateOf(false) }
     var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
     val sheetState = rememberModalBottomSheetState()
+
     val focusManager = LocalFocusManager.current
+
     val addStorySuccessMessage = stringResource(R.string.add_story_success)
 
     val cropLauncher =
@@ -132,6 +137,7 @@ fun AddStoryScreen(
         AddStoryContent(
             modifier = modifier.padding(padding),
             state = state,
+            name = session.name.toString(),
             onImageClick = { showBottomSheet = true },
             onDescriptionChange = viewModel::setDescription,
             onClearFocus = { focusManager.clearFocus() }

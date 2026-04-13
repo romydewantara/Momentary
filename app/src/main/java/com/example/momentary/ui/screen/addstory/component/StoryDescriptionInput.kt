@@ -31,7 +31,6 @@ fun StoryDescriptionInput(
     value: String,
     onValueChange: (String) -> Unit,
     name: String,
-    isOwnStory: Boolean
 ) {
     Row(
         modifier = Modifier
@@ -42,7 +41,7 @@ fun StoryDescriptionInput(
     ) {
         Avatar(
             name = name,
-            isOwnStory = isOwnStory
+            isOwnStory = true
         )
 
         Spacer(Modifier.width(12.dp))

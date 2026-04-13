@@ -19,6 +19,7 @@ import com.example.momentary.ui.screen.addstory.AddStoryUiState
 fun AddStoryContent(
     modifier: Modifier,
     state: AddStoryUiState,
+    name: String,
     onImageClick: () -> Unit,
     onDescriptionChange: (String) -> Unit,
     onClearFocus: () -> Unit
@@ -47,8 +48,7 @@ fun AddStoryContent(
             StoryDescriptionInput(
                 value = state.description,
                 onValueChange = onDescriptionChange,
-                name = "romydewantara",
-                isOwnStory = true
+                name = name,
             )
         }
     }
