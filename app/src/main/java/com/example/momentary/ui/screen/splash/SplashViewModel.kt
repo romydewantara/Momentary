@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.momentary.data.repository.MomentaryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,12 +16,18 @@ class SplashViewModel @Inject constructor(
     private val repository: MomentaryRepository
 ) : ViewModel() {
 
-    var isLoggedIn by mutableStateOf<Boolean?>(null)
+    var state by mutableStateOf<SplashUiState?>(null)
         private set
 
     init {
         viewModelScope.launch {
-            isLoggedIn = repository.isLoggedIn()
+            val isLoggedIn = repository.isLoggedIn()
+            val isOnboardingCompleted = repository.isOnboardingCompleted().first()
+
+            state = SplashUiState(
+                isLoggedIn = isLoggedIn,
+                isOnboardingCompleted = isOnboardingCompleted
+            )
         }
     }
 }

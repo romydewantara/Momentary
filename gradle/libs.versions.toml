@@ -5,6 +5,7 @@ animation = "1.10.5"
 cameraCore = "1.6.0"
 coilCompose = "3.2.0"
 composeBom = "2024.09.00"
+constraintlayoutCompose = "1.1.1"
 coreKtx = "1.18.0"
 datastorePreferences = "1.2.1"
 desugar_jdk_libs = "2.0.4"
@@ -31,6 +32,7 @@ androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.r
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCore" }
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

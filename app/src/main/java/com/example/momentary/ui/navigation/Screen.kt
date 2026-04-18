@@ -4,6 +4,7 @@ import com.example.momentary.utils.Route
 
 sealed class Screen(val route: String) {
     data object Splash : Screen(Route.SPLASH)
+    data object Onboarding : Screen(Route.ONBOARDING)
     data object Login : Screen(Route.LOGIN)
     data object Register : Screen(Route.REGISTER)
     data object Home : Screen(Route.HOME)

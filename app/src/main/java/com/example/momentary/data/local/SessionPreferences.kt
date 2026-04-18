@@ -1,6 +1,7 @@
 package com.example.momentary.data.local
 
 import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -16,9 +17,18 @@ class SessionPreferences @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) {
 
+    private val onboardingKey = booleanPreferencesKey("onboarding")
     private val tokenKey = stringPreferencesKey("token")
     private val nameKey = stringPreferencesKey("name")
     private val emailKey = stringPreferencesKey("email")
+
+    fun isOnboardingCompleted(): Flow<Boolean> {
+        return context.dataStore.data.map { it[onboardingKey] ?: false }
+    }
+
+    suspend fun setOnboardingCompleted() {
+        context.dataStore.edit { it[onboardingKey] = true }
+    }
 
     fun getToken(): Flow<String?> {
         return context.dataStore.data.map { it[tokenKey] }

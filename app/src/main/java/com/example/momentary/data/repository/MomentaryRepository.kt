@@ -187,4 +187,12 @@ class MomentaryRepository @Inject constructor(
     suspend fun isLoggedIn(): Boolean {
         return prefs.getToken().first() != null
     }
+
+    fun isOnboardingCompleted(): Flow<Boolean> {
+        return prefs.isOnboardingCompleted()
+    }
+
+    suspend fun setOnboardingCompleted() {
+        prefs.setOnboardingCompleted()
+    }
 }

@@ -14,6 +14,7 @@ import com.example.momentary.ui.screen.auth.login.LoginScreen
 import com.example.momentary.ui.screen.auth.register.RegisterScreen
 import com.example.momentary.ui.screen.detail.DetailScreen
 import com.example.momentary.ui.screen.home.HomeScreen
+import com.example.momentary.ui.screen.onboarding.OnboardingScreen
 import com.example.momentary.ui.screen.splash.SplashScreen
 
 
@@ -30,14 +31,29 @@ fun NavGraph(
         ) {
 
             composable(Screen.Splash.route) {
-                SplashScreen { isLoggedIn ->
-                    val route = if (isLoggedIn) Screen.Home.route else Screen.Login.route
+                SplashScreen { state ->
+                    val route = when {
+                        !state.isOnboardingCompleted -> Screen.Onboarding.route
+                        state.isLoggedIn -> Screen.Home.route
+                        else -> Screen.Login.route
+                    }
 
                     navController.navigate(route) {
                         popUpTo(Screen.Splash.route) { inclusive = true }
                         launchSingleTop = true
                     }
                 }
+            }
+
+            composable(Screen.Onboarding.route) {
+                OnboardingScreen(
+                    onFinish = {
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.Onboarding.route) { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
             }
 
             composable(Screen.Login.route) { backStackEntry ->

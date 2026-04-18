@@ -6,6 +6,17 @@
     <string name="text_field_password">Kata sandi</string>
     <string name="text_field_name">Nama</string>
 
+    <!-- Onboarding Screen -->
+    <string name="onboarding_title_first">Setiap Momen Itu Berarti</string>
+    <string name="onboarding_title_second">Yuk, Ceritakan Kisahmu</string>
+    <string name="onboarding_title_third">Tangkap Semua Momen Seru</string>
+    <string name="onboarding_title_fourth">Flashback Instan</string>
+    <string name="onboarding_desc_first">Momen sehari-hari jadi lebih berarti, cepat dan mudah.</string>
+    <string name="onboarding_desc_second">Ubah momen harianmu jadi cerita yang berkesan hanya dengan satu sentuhan.</string>
+    <string name="onboarding_desc_third">Terhubung, berekspresi, dan bagikan pengalamanmu dengan orang-orang terdekat.</string>
+    <string name="onboarding_desc_fourth">Lihat kembali story lama kapan saja dengan mudah.</string>
+    <string name="onboarding_button_start">Mulai Ceritamu</string>
+
     <!-- Login Screen -->
     <string name="login_button_login">Masuk</string>
     <string name="login_register_text">Belum punya akun?</string>

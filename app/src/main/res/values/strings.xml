@@ -6,6 +6,17 @@
     <string name="text_field_password">Password</string>
     <string name="text_field_name">Name</string>
 
+    <!-- Onboarding Screen -->
+    <string name="onboarding_title_first">Every Moment Matters</string>
+    <string name="onboarding_title_second">Share Your Story</string>
+    <string name="onboarding_title_third">Capture Every Moment</string>
+    <string name="onboarding_title_fourth">Instant Flashback</string>
+    <string name="onboarding_desc_first">Turn everyday moments into something meaningful, quickly and effortlessly.</string>
+    <string name="onboarding_desc_second">Connect, express, and share your experiences with people who matter.</string>
+    <string name="onboarding_desc_third">Turn your everyday moments into beautiful stories with just a tap.</string>
+    <string name="onboarding_desc_fourth">Easily revisit your past stories anytime.</string>
+    <string name="onboarding_button_start">Start Your Story</string>
+
     <!-- Login Screen -->
     <string name="login_button_login">Sign In</string>
     <string name="login_register_text">Don’t have an account?</string>
