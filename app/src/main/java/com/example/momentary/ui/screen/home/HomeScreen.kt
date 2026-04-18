@@ -50,6 +50,8 @@ import com.example.momentary.ui.screen.home.component.EmptyState
 import com.example.momentary.ui.screen.home.component.ErrorState
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
+import com.example.momentary.utils.toEpochMillis
+import com.example.momentary.utils.toRelativeTime
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -223,6 +225,12 @@ fun HomeScreen(
                                         key = { _, it -> it.id }
                                     ) { index, item ->
                                         val locationText = state.locationMap[item.id]
+                                        val context = LocalContext.current
+                                        val timeText = remember(item.createdAt, context) {
+                                            item.createdAt
+                                                .toEpochMillis()
+                                                .toRelativeTime(context = context)
+                                        }
                                         Column {
                                             StoryItem(
                                                 id = item.story.id,
@@ -232,7 +240,7 @@ fun HomeScreen(
                                                 isVerified = item.isVerified,
                                                 isOwnStory = item.isOwnStory,
                                                 locationText = locationText,
-                                                timeText = item.timeText,
+                                                timeText = timeText,
                                                 sharedTransitionScope = sharedTransitionScope,
                                                 animatedVisibilityScope = animatedVisibilityScope,
                                                 onImageLoaded = { ratio ->

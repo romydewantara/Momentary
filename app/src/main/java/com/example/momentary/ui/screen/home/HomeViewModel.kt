@@ -12,8 +12,6 @@ import com.example.momentary.ui.screen.home.component.DrawerItem
 import com.example.momentary.ui.screen.home.model.StoryUiModel
 import com.example.momentary.utils.AppConstants
 import com.example.momentary.utils.getCityCountrySafe
-import com.example.momentary.utils.toEpochMillis
-import com.example.momentary.utils.toRelativeTime
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -136,16 +134,12 @@ class HomeViewModel @Inject constructor(
             val isVerified =
                 story.name == AppConstants.OFFICIAL_ACCOUNT_NAME || isOwnStory
 
-            val timeText = story.createdAt
-                .toEpochMillis()
-                .toRelativeTime(context = context)
-
             StoryUiModel(
                 id = story.id,
                 story = story,
                 isOwnStory = isOwnStory,
                 isVerified = isVerified,
-                timeText = timeText
+                createdAt = story.createdAt
             )
         }
     }
