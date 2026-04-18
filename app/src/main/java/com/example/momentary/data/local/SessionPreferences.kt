@@ -58,7 +58,9 @@ class SessionPreferences @Inject constructor(
 
     suspend fun clear() {
         context.dataStore.edit {
-            it.clear()
+            it.remove(tokenKey)
+            it.remove(nameKey)
+            it.remove(emailKey)
         }
     }
 }
