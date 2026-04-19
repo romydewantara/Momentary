@@ -69,6 +69,10 @@ fun NavGraph(
                             .savedStateHandle[NavKeys.HOME_SUCCESS_MESSAGE] = message
                     },
                     navigateToRegister = {
+                        navController.currentBackStackEntry
+                            ?.savedStateHandle
+                            ?.remove<Boolean>(NavKeys.REGISTER_SUCCESS)
+
                         navController.navigate(Screen.Register.route)
                     }
                 )
@@ -100,11 +104,21 @@ fun NavGraph(
                     },
                     onNavigateToDetail = { story ->
                         val currentEntry = navController.currentBackStackEntry
-                        currentEntry?.savedStateHandle?.set(NavKeys.SELECTED_STORY, story)
+                        currentEntry?.savedStateHandle
+                            ?.remove<String>(NavKeys.HOME_SUCCESS_MESSAGE)
+
+                        currentEntry?.savedStateHandle
+                            ?.set(NavKeys.SELECTED_STORY, story)
 
                         navController.navigate(Screen.Detail.createRoute(story.id))
                     },
-                    onNavigateToAddStory = { navController.navigate(Screen.AddStory.route) }
+                    onNavigateToAddStory = {
+                        navController.currentBackStackEntry
+                            ?.savedStateHandle
+                            ?.remove<String>(NavKeys.HOME_SUCCESS_MESSAGE)
+
+                        navController.navigate(Screen.AddStory.route)
+                    }
                 )
             }
 

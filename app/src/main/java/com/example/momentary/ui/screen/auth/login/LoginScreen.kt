@@ -59,8 +59,8 @@ fun LoginScreen(
 
     var isErrorSnackBar by remember { mutableStateOf(false) }
 
-    val savedStateHandle = backStackEntry.savedStateHandle
-    val registerSuccess = savedStateHandle.get<Boolean>(NavKeys.REGISTER_SUCCESS)
+    val registerSuccess =
+        backStackEntry.savedStateHandle.get<Boolean>(NavKeys.REGISTER_SUCCESS)
     val successMessage = stringResource(R.string.register_success)
     val loginSuccessMessage = stringResource(R.string.login_success)
 
@@ -71,7 +71,7 @@ fun LoginScreen(
             )
             isErrorSnackBar = false
 
-            savedStateHandle.remove<Boolean>(NavKeys.REGISTER_SUCCESS)
+            backStackEntry.savedStateHandle.remove<Boolean>(NavKeys.REGISTER_SUCCESS)
         }
     }
 
