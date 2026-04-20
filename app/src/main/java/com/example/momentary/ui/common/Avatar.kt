@@ -23,16 +23,19 @@ fun Avatar(
     name: String,
     isOwnStory: Boolean
 ) {
-    if (isOwnStory) {
+    val isOfficial = name == AppConstants.OFFICIAL_ACCOUNT_NAME
+    val imageModel = when {
+        isOfficial -> R.drawable.ic_launcher_foreground
+        isOwnStory -> NetworkConstants.PHOTO_URL
+        else -> null
+    }
+
+    if (imageModel != null) {
         AsyncImage(
-            model = if (name == AppConstants.OFFICIAL_ACCOUNT_NAME) {
-                R.drawable.ic_launcher_foreground
-            } else {
-                NetworkConstants.PHOTO_URL
-            },
-            contentDescription = stringResource(R.string.cd_add_image),
+            model = imageModel,
+            contentDescription = stringResource(R.string.cd_photo),
             modifier = Modifier
-                .size(48.dp)
+                .size(40.dp)
                 .clip(CircleShape)
         )
     } else {

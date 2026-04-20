@@ -40,7 +40,7 @@
     <string name="drawer_logout_confirm_positive">Ya, Keluar</string>
     <string name="drawer_logout_confirm_negative">Batal</string>
     <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
-    <string name="drawer_app_build">v1.0.0.2026.03.10 – DEV</string>
+    <string name="drawer_app_build">v1.0.0.2026.04.21 – DEV</string>
 
     <!-- Home Screen -->
     <string name="home_empty_story">Belum ada cerita</string>
@@ -103,6 +103,7 @@
     <string name="cd_button_logout">Keluar</string>
     <string name="cd_button_back">Kembali</string>
     <string name="cd_certified">Sertifikasi</string>
+    <string name="cd_photo">Photo</string>
     <string name="cd_story">Cerita</string>
     <string name="cd_story_image">Gambar</string>
     <string name="cd_story_item_public">Publik</string>
