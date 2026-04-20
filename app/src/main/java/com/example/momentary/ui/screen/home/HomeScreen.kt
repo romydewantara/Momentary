@@ -225,12 +225,9 @@ fun HomeScreen(
                                         key = { _, it -> it.id }
                                     ) { index, item ->
                                         val locationText = state.locationMap[item.id]
-                                        val context = LocalContext.current
-                                        val timeText = remember(item.createdAt, context) {
-                                            item.createdAt
-                                                .toEpochMillis()
-                                                .toRelativeTime(context = context)
-                                        }
+                                        val timeText = item.createdAt.toEpochMillis()
+                                            .toRelativeTime(context = context)
+
                                         Column {
                                             StoryItem(
                                                 id = item.story.id,

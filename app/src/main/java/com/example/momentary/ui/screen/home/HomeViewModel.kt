@@ -72,8 +72,7 @@ class HomeViewModel @Inject constructor(
                     val stories = result.data
                     val uiModel = mapToUiModel(
                         stories = stories,
-                        session = sessionValue,
-                        context = context
+                        session = sessionValue
                     )
 
                     stories.forEach { story ->
@@ -127,7 +126,6 @@ class HomeViewModel @Inject constructor(
     private fun mapToUiModel(
         stories: List<Story>,
         session: UserSession,
-        context: Context
     ): List<StoryUiModel> {
         return stories.map { story ->
             val isOwnStory = story.name == session.name
