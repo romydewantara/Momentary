@@ -40,7 +40,7 @@
     <string name="drawer_logout_confirm_positive">Log out</string>
     <string name="drawer_logout_confirm_negative">Cancel</string>
     <string name="drawer_app_copyright">© 2026 Momentary Technologies.</string>
-    <string name="drawer_app_build">v1.0.0.2026.04.21 – DEV</string>
+    <string name="drawer_app_build">v1.1.0.2026.04.21 – DEV</string>
 
     <!-- Home Screen -->
     <string name="home_empty_story">No stories yet</string>
