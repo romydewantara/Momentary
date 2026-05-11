@@ -195,4 +195,24 @@ class MomentaryRepository @Inject constructor(
     suspend fun setOnboardingCompleted() {
         prefs.setOnboardingCompleted()
     }
+
+    suspend fun getStoriesWithLocation(): ResultState<List<Story>> {
+        return try {
+
+            val token = prefs.getToken().first() ?: ""
+
+            val response = api.getStories(
+                token = "Bearer $token",
+                location = 1
+            )
+
+            ResultState.Success(response.listStory)
+
+        } catch (_: Exception) {
+
+            ResultState.Error(
+                UiText.StringResource(R.string.error_network)
+            )
+        }
+    }
 }

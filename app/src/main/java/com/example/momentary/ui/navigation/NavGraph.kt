@@ -14,6 +14,7 @@ import com.example.momentary.ui.screen.auth.login.LoginScreen
 import com.example.momentary.ui.screen.auth.register.RegisterScreen
 import com.example.momentary.ui.screen.detail.DetailScreen
 import com.example.momentary.ui.screen.home.HomeScreen
+import com.example.momentary.ui.screen.maps.MapsScreen
 import com.example.momentary.ui.screen.onboarding.OnboardingScreen
 import com.example.momentary.ui.screen.splash.SplashScreen
 
@@ -118,6 +119,9 @@ fun NavGraph(
                             ?.remove<String>(NavKeys.HOME_SUCCESS_MESSAGE)
 
                         navController.navigate(Screen.AddStory.route)
+                    },
+                    onNavigateToMaps = {
+                        navController.navigate(Screen.Maps.route)
                     }
                 )
             }
@@ -161,6 +165,24 @@ fun NavGraph(
                             .savedStateHandle[NavKeys.HOME_SUCCESS_MESSAGE] = message
                     },
                     onBack = { navController.safePopBackStack() }
+                )
+            }
+
+            composable(Screen.Maps.route) {
+                MapsScreen(
+                    onBack = {
+                        navController.safePopBackStack()
+                    },
+                    onNavigateToDetail = { story ->
+
+                        navController.currentBackStackEntry
+                            ?.savedStateHandle
+                            ?.set(NavKeys.SELECTED_STORY, story)
+
+                        navController.navigate(
+                            Screen.Detail.createRoute(story.id)
+                        )
+                    }
                 )
             }
         }

@@ -111,6 +111,7 @@
     <string name="cd_certified">Certified</string>
     <string name="cd_photo">Photo</string>
     <string name="cd_story">Story</string>
+    <string name="cd_maps">Maps</string>
     <string name="cd_story_image">Image</string>
     <string name="cd_story_item_public">Public</string>
     <string name="tag_register">register</string>

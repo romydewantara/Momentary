@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -64,6 +66,7 @@ fun HomeScreen(
     onLogout: () -> Unit,
     onNavigateToDetail: (Story) -> Unit,
     onNavigateToAddStory: () -> Unit,
+    onNavigateToMaps: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -170,6 +173,14 @@ fun HomeScreen(
                             Icon(
                                 painter = painterResource(R.drawable.ic_add),
                                 contentDescription = stringResource(R.string.cd_story)
+                            )
+                        }
+                        IconButton(
+                            onClick = onNavigateToMaps
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Map,
+                                contentDescription = stringResource(R.string.cd_maps)
                             )
                         }
                     }

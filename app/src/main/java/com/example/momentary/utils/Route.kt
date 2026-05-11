@@ -8,4 +8,5 @@ object Route {
     const val HOME = "home"
     const val DETAIL = "detail/{storyId}"
     const val ADD_STORY = "add_story"
+    const val MAPS = "maps"
 }

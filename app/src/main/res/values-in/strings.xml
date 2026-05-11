@@ -105,6 +105,7 @@
     <string name="cd_certified">Sertifikasi</string>
     <string name="cd_photo">Photo</string>
     <string name="cd_story">Cerita</string>
+    <string name="cd_maps">Map</string>
     <string name="cd_story_image">Gambar</string>
     <string name="cd_story_item_public">Publik</string>
     <string name="tag_register">register</string>

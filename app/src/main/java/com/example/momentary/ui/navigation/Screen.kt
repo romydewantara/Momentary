@@ -13,4 +13,5 @@ sealed class Screen(val route: String) {
     }
 
     data object AddStory : Screen(Route.ADD_STORY)
+    data object Maps : Screen(Route.MAPS)
 }
