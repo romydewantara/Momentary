@@ -46,6 +46,7 @@
     <string name="home_empty_story">Belum ada cerita</string>
     <string name="home_empty_story_description">Jadilah yang pertama berbagi momenmu!</string>
     <string name="home_pull_to_refresh_hint">Tarik ke bawah untuk menyegarkan</string>
+    <string name="home_scroll_to_top">Scroll ke atas</string>
 
     <!-- Add Story Screen -->
     <string name="add_story_title">Cerita Baru</string>
@@ -55,6 +56,8 @@
     <string name="add_story_add_image_source_camera">Kamera</string>
     <string name="add_story_description_hint">Tulis sesuatu tentang ceritamu…</string>
     <string name="add_story_description_visibility">Publik</string>
+    <string name="add_story_description_location">Tambahkan lokasi</string>
+    <string name="add_story_button_use_location">Gunakan lokasi ini</string>
     <string name="add_story_button_upload">Unggah</string>
     <string name="add_story_success">Yeay! Ceritamu berhasil diposting.</string>
 
@@ -105,6 +108,7 @@
     <string name="cd_certified">Sertifikasi</string>
     <string name="cd_photo">Photo</string>
     <string name="cd_story">Cerita</string>
+    <string name="cd_delete_location">Hapus Lokasi</string>
     <string name="cd_maps">Map</string>
     <string name="cd_story_image">Gambar</string>
     <string name="cd_story_item_public">Publik</string>

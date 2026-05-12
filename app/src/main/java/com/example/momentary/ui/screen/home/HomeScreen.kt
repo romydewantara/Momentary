@@ -2,8 +2,13 @@ package com.example.momentary.ui.screen.home
 
 import android.content.Intent
 import android.provider.Settings
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,11 +34,13 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
@@ -50,6 +57,7 @@ import com.example.momentary.ui.navigation.NavKeys
 import com.example.momentary.ui.screen.home.component.AppDrawer
 import com.example.momentary.ui.screen.home.component.EmptyState
 import com.example.momentary.ui.screen.home.component.ErrorState
+import com.example.momentary.ui.screen.home.component.ScrollToTopButton
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
 import com.example.momentary.utils.toEpochMillis
@@ -228,6 +236,9 @@ fun HomeScreen(
                             }
 
                             else -> {
+                                val showScrollToTopButton: Boolean by remember {
+                                    derivedStateOf { listState.firstVisibleItemIndex > 0 }
+                                }
                                 LazyColumn(
                                     state = listState
                                 ) {
@@ -265,6 +276,22 @@ fun HomeScreen(
                                             }
                                         }
                                     }
+                                }
+                                AnimatedVisibility(
+                                    visible = showScrollToTopButton,
+                                    enter = fadeIn() + slideInVertically(),
+                                    exit = fadeOut() + slideOutVertically(),
+                                    modifier = Modifier
+                                        .padding(16.dp)
+                                        .align(Alignment.BottomCenter)
+                                ) {
+                                    ScrollToTopButton(
+                                        onClick = {
+                                            scope.launch {
+                                                listState.animateScrollToItem(index = 0)
+                                            }
+                                        }
+                                    )
                                 }
                             }
                         }

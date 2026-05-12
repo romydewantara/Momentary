@@ -139,14 +139,18 @@ class MomentaryRepository @Inject constructor(
 
     suspend fun addStory(
         photo: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        latBody: RequestBody?,
+        lonBody: RequestBody?
     ): ResultState<BaseResponse> {
         return try {
             val token = prefs.getToken().first() ?: ""
             val response = api.addStory(
                 token = "Bearer $token",
                 photo = photo,
-                description = description
+                description = description,
+                lat = latBody,
+                lon = lonBody
             )
             ResultState.Success(response)
         } catch (e: retrofit2.HttpException) {

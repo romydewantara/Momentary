@@ -50,6 +50,12 @@ class AddStoryViewModel @Inject constructor(
         _state.update { it.copy(description = desc) }
     }
 
+    fun setLocation(location: StoryLocation?) {
+        _state.update {
+            it.copy(selectedLocation = location)
+        }
+    }
+
     fun uploadStory() {
         val current = _state.value
         if (!current.isValid) return
@@ -58,12 +64,22 @@ class AddStoryViewModel @Inject constructor(
             _state.update { it.copy(isLoading = true) }
 
             val file = File(current.imageUri?.toUri()?.path ?: "")
-            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val body = MultipartBody.Part.createFormData("photo", file.name, requestFile)
-            val descBody = current.description.toRequestBody("text/plain".toMediaTypeOrNull())
+            val requestFile = file
+                .asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val body = MultipartBody.Part
+                .createFormData("photo", file.name, requestFile)
+            val descBody = current.description
+                .toRequestBody("text/plain".toMediaTypeOrNull())
+
+            val location = current.selectedLocation
+            val latBody = location?.lat?.toString()
+                ?.toRequestBody("text/plain".toMediaTypeOrNull())
+            val lonBody = location?.lon?.toString()
+                ?.toRequestBody("text/plain".toMediaTypeOrNull())
 
             when (val response =
-                repository.addStory(photo = body, description = descBody)) {
+                repository.addStory(body, descBody, latBody, lonBody)
+            ) {
                 is ResultState.Success -> {
                     _state.update { it.copy(isLoading = false, isSuccess = true) }
                     _event.emit(

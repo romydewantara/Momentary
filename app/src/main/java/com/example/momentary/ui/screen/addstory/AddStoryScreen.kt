@@ -6,6 +6,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -27,6 +28,7 @@ import com.example.momentary.ui.common.CustomSnackBar
 import com.example.momentary.ui.common.StoryTopBar
 import com.example.momentary.ui.screen.addstory.component.AddStoryContent
 import com.example.momentary.ui.screen.addstory.component.ImageSourceBottomSheet
+import com.example.momentary.ui.screen.addstory.component.LocationPickerSheet
 import com.example.momentary.ui.screen.addstory.component.UploadButton
 import com.example.momentary.utils.ImageUtils
 import com.yalantis.ucrop.UCrop
@@ -49,6 +51,8 @@ fun AddStoryScreen(
     var showBottomSheet by remember { mutableStateOf(false) }
     var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
     val sheetState = rememberModalBottomSheetState()
+
+    var showLocationPicker by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
 
@@ -111,6 +115,10 @@ fun AddStoryScreen(
         { showBottomSheet = false }
     }
 
+    val hideLocationPickerBottomSheet = remember {
+        { showLocationPicker = false }
+    }
+
     Scaffold(
         topBar = {
             StoryTopBar(
@@ -140,6 +148,8 @@ fun AddStoryScreen(
             name = session.name.toString(),
             onImageClick = { showBottomSheet = true },
             onDescriptionChange = viewModel::setDescription,
+            onLocationClick = { showLocationPicker = true },
+            onDeleteLocation = { viewModel.setLocation(null) },
             onClearFocus = { focusManager.clearFocus() }
         )
 
@@ -154,5 +164,26 @@ fun AddStoryScreen(
                 cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
             }
         )
+
+        if (showLocationPicker) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    hideLocationPickerBottomSheet()
+                },
+                dragHandle = null,
+                sheetState = rememberModalBottomSheetState(
+                    skipPartiallyExpanded = true
+                ),
+                sheetGesturesEnabled = false
+            ) {
+                LocationPickerSheet(
+                    selectedLocation = state.selectedLocation,
+                    onLocationSelected = { location ->
+                        viewModel.setLocation(location)
+                        hideLocationPickerBottomSheet()
+                    }
+                )
+            }
+        }
     }
 }

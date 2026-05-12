@@ -22,6 +22,8 @@ fun AddStoryContent(
     name: String,
     onImageClick: () -> Unit,
     onDescriptionChange: (String) -> Unit,
+    onLocationClick: () -> Unit,
+    onDeleteLocation: () -> Unit,
     onClearFocus: () -> Unit
 ) {
     Box(
@@ -49,6 +51,9 @@ fun AddStoryContent(
                 value = state.description,
                 onValueChange = onDescriptionChange,
                 name = name,
+                location = state.selectedLocation,
+                onLocationClick = onLocationClick,
+                onDeleteLocation = onDeleteLocation
             )
         }
     }

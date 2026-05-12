@@ -97,7 +97,6 @@ fun MapsScreen(
         }
 
         if (locations.isEmpty()) {
-
             cameraPositionState.animate(
                 update = CameraUpdateFactory.newLatLngZoom(
                     indonesiaLatLng,
@@ -110,7 +109,6 @@ fun MapsScreen(
         }
 
         if (locations.size == 1) {
-
             cameraPositionState.animate(
                 update = CameraUpdateFactory.newLatLngZoom(
                     locations.first(),
@@ -147,7 +145,6 @@ fun MapsScreen(
                 ?: return@LaunchedEffect
 
         if (biggestCluster.size < 3) {
-
             cameraPositionState.animate(
                 update = CameraUpdateFactory.newLatLngZoom(
                     indonesiaLatLng,
@@ -215,7 +212,7 @@ fun MapsScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Error occured" // it.asString()
+                            text = "Error occured"
                         )
                     }
                 }
