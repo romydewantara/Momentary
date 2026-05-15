@@ -1,13 +1,11 @@
 package com.example.momentary.ui.screen.addstory.component
 
-import android.location.Geocoder
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +16,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.momentary.R
@@ -31,20 +28,17 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberUpdatedMarkerState
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 @Composable
 fun LocationPickerSheet(
     selectedLocation: StoryLocation?,
-    onLocationSelected: (StoryLocation) -> Unit,
+    onLocationSelected: (Double, Double) -> Unit,
 ) {
-
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     val defaultLocation = LatLng(
-        selectedLocation?.lat ?: -6.200000,
-        selectedLocation?.lon ?: 106.816666
+        selectedLocation?.lat ?: -6.8957473,
+        selectedLocation?.lon ?: 107.6337669
     )
 
     var markerPosition by remember {
@@ -71,19 +65,19 @@ fun LocationPickerSheet(
             .fillMaxWidth()
             .fillMaxHeight(0.85f)
     ) {
-
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             onMapClick = { latLng ->
                 markerPosition = latLng
+            },
+            content = {
+                Marker(
+                    state = markerState,
+                    draggable = true
+                )
             }
-        ) {
-            Marker(
-                state = markerState,
-                draggable = true
-            )
-        }
+        )
 
         CurrentLocationButton(
             modifier = Modifier
@@ -106,26 +100,9 @@ fun LocationPickerSheet(
 
         Button(
             onClick = {
-
-                val geocoder =
-                    Geocoder(context, Locale.getDefault())
-
-                val address =
-                    geocoder.getFromLocation(
-                        markerPosition.latitude,
-                        markerPosition.longitude,
-                        1
-                    )
-                        ?.firstOrNull()
-                        ?.getAddressLine(0)
-                        ?: "Unknown location"
-
                 onLocationSelected(
-                    StoryLocation(
-                        lat = markerPosition.latitude,
-                        lon = markerPosition.longitude,
-                        address = address
-                    )
+                    markerPosition.latitude,
+                    markerPosition.longitude
                 )
             },
             modifier = Modifier
@@ -133,8 +110,7 @@ fun LocationPickerSheet(
                 .padding(16.dp)
         ) {
             Text(
-                text = stringResource(R.string.add_story_button_use_location),
-                style = MaterialTheme.typography.bodyMedium
+                text = stringResource(R.string.add_story_button_use_location)
             )
         }
     }

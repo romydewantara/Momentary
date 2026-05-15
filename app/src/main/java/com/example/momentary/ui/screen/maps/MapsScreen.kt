@@ -34,7 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -65,14 +65,13 @@ fun MapsScreen(
     var selectedStory by remember { mutableStateOf<Story?>(null) }
     val state by viewModel.state.collectAsStateWithLifecycle()
     var mapLoaded by remember { mutableStateOf(false) }
-    val context = LocalContext.current
-
+    val resources = LocalResources.current
     val indonesiaLatLng = remember {
         LatLng(-2.5489, 118.0149)
     }
 
-    val mapStyle = remember(context) {
-        context.resources
+    val mapStyle = remember(resources) {
+        resources
             .openRawResource(R.raw.map_style)
             .bufferedReader()
             .use { it.readText() }

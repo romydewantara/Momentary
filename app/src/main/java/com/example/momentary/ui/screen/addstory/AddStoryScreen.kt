@@ -149,7 +149,7 @@ fun AddStoryScreen(
             onImageClick = { showBottomSheet = true },
             onDescriptionChange = viewModel::setDescription,
             onLocationClick = { showLocationPicker = true },
-            onDeleteLocation = { viewModel.setLocation(null) },
+            onDeleteLocation = viewModel::clearLocation,
             onClearFocus = { focusManager.clearFocus() }
         )
 
@@ -178,8 +178,8 @@ fun AddStoryScreen(
             ) {
                 LocationPickerSheet(
                     selectedLocation = state.selectedLocation,
-                    onLocationSelected = { location ->
-                        viewModel.setLocation(location)
+                    onLocationSelected = { lat, lon ->
+                        viewModel.selectLocation(lat, lon)
                         hideLocationPickerBottomSheet()
                     }
                 )

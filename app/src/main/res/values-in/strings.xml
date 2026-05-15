@@ -57,6 +57,7 @@
     <string name="add_story_description_hint">Tulis sesuatu tentang ceritamu…</string>
     <string name="add_story_description_visibility">Publik</string>
     <string name="add_story_description_location">Tambahkan lokasi</string>
+    <string name="add_story_unknown_location">Lokasi tidak diketahui</string>
     <string name="add_story_button_use_location">Gunakan lokasi ini</string>
     <string name="add_story_button_upload">Unggah</string>
     <string name="add_story_success">Yeay! Ceritamu berhasil diposting.</string>

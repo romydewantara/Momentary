@@ -4,6 +4,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.momentary.R
+import com.example.momentary.data.location.GeocoderHelper
 import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.repository.MomentaryRepository
 import com.example.momentary.ui.common.ResultState
@@ -27,7 +28,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddStoryViewModel @Inject constructor(
-    private val repository: MomentaryRepository
+    private val repository: MomentaryRepository,
+    private val geocoderHelper: GeocoderHelper
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AddStoryUiState())
@@ -50,9 +52,31 @@ class AddStoryViewModel @Inject constructor(
         _state.update { it.copy(description = desc) }
     }
 
-    fun setLocation(location: StoryLocation?) {
+    fun clearLocation() {
         _state.update {
-            it.copy(selectedLocation = location)
+            it.copy(selectedLocation = null)
+        }
+    }
+
+    fun selectLocation(
+        latitude: Double,
+        longitude: Double
+    ) {
+        viewModelScope.launch {
+            val address = geocoderHelper.getAddress(
+                latitude,
+                longitude
+            )
+
+            _state.update {
+                it.copy(
+                    selectedLocation = StoryLocation(
+                        lat = latitude,
+                        lon = longitude,
+                        address = address
+                    )
+                )
+            }
         }
     }
 
