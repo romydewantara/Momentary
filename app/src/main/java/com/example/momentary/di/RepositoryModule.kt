@@ -1,6 +1,7 @@
 package com.example.momentary.di
 
 import com.example.momentary.data.local.SessionPreferences
+import com.example.momentary.data.local.database.MomentaryDatabase
 import com.example.momentary.data.remote.ApiService
 import com.example.momentary.data.repository.MomentaryRepository
 import dagger.Module
@@ -17,8 +18,9 @@ object RepositoryModule {
     @Provides
     fun provideRepository(
         api: ApiService,
-        prefs: SessionPreferences
+        prefs: SessionPreferences,
+        database: MomentaryDatabase
     ): MomentaryRepository {
-        return MomentaryRepository(api, prefs)
+        return MomentaryRepository(api, prefs, database)
     }
 }

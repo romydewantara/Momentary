@@ -1,23 +1,34 @@
 package com.example.momentary.data.repository
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.momentary.R
 import com.example.momentary.data.local.SessionPreferences
+import com.example.momentary.data.local.database.MomentaryDatabase
+import com.example.momentary.data.local.entity.toStory
 import com.example.momentary.data.model.AuthResponse
 import com.example.momentary.data.model.BaseResponse
 import com.example.momentary.data.model.Story
 import com.example.momentary.data.model.UserSession
 import com.example.momentary.data.remote.ApiService
+import com.example.momentary.data.remote.mediator.StoryRemoteMediator
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.UiText
+import com.example.momentary.ui.screen.home.model.StoryUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
 class MomentaryRepository @Inject constructor(
     private val api: ApiService,
-    private val prefs: SessionPreferences
+    private val prefs: SessionPreferences,
+    private val database: MomentaryDatabase
 ) {
 
     suspend fun login(email: String, password: String): ResultState<AuthResponse> {
@@ -217,6 +228,48 @@ class MomentaryRepository @Inject constructor(
             ResultState.Error(
                 UiText.StringResource(R.string.error_network)
             )
+        }
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    fun getPagedStories(
+        sessionName: String?
+    ): Flow<PagingData<StoryUiModel>> {
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                initialLoadSize = 10,
+                prefetchDistance = 5,
+                enablePlaceholders = true
+            ),
+            remoteMediator = StoryRemoteMediator(
+                database = database,
+                api = api,
+                tokenProvider = {
+                    prefs.getToken().first().orEmpty()
+                }
+            ),
+            pagingSourceFactory = {
+                database.storyDao().getPagedStories()
+            }
+        ).flow.map { pagingData ->
+
+            pagingData.map { entity ->
+
+                val story = entity.toStory()
+
+                val isOwnStory = story.name == sessionName
+                val isVerified = isOwnStory
+
+                StoryUiModel(
+                    id = story.id,
+                    story = story,
+                    isOwnStory = isOwnStory,
+                    isVerified = isVerified,
+                    createdAt = story.createdAt
+                )
+            }
         }
     }
 }
