@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -42,6 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
+import com.example.momentary.ui.common.ErrorState
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -206,14 +208,13 @@ fun MapsScreen(
                 }
 
                 state.error != null -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Error occured"
-                        )
-                    }
+                    ErrorState(
+                        message = stringResource(R.string.error_unknown),
+                        showRefreshHint = false,
+                        onRetry = {
+                            viewModel.fetchStories()
+                        }
+                    )
                 }
 
                 else -> {

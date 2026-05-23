@@ -23,7 +23,7 @@ class MapsViewModel @Inject constructor(
         fetchStories()
     }
 
-    private fun fetchStories() {
+    fun fetchStories() {
         viewModelScope.launch {
 
             _state.update {

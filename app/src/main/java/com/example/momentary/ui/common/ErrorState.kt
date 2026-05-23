@@ -1,4 +1,4 @@
-package com.example.momentary.ui.screen.home.component
+package com.example.momentary.ui.common
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +37,9 @@ import com.example.momentary.R
 @Composable
 fun ErrorState(
     modifier: Modifier = Modifier,
-    message: String
+    message: String,
+    showRefreshHint: Boolean = true,
+    onRetry: (() -> Unit)? = null
 ) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.lottie_error)
@@ -66,16 +69,18 @@ fun ErrorState(
         modifier = modifier.fillMaxSize()
     ) {
 
-        Text(
-            text = stringResource(R.string.home_pull_to_refresh_hint),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp)
-                .offset(y = offsetY.dp)
-        )
+        if (showRefreshHint) {
+            Text(
+                text = stringResource(R.string.home_pull_to_refresh_hint),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp)
+                    .offset(y = offsetY.dp)
+            )
+        }
 
         Column(
             modifier = Modifier
@@ -100,6 +105,13 @@ fun ErrorState(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
+
+            if (onRetry != null) {
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(onClick = onRetry) {
+                    Text(text = stringResource(R.string.maps_button_try_again))
+                }
+            }
         }
     }
 }

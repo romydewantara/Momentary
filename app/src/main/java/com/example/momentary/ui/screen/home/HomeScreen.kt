@@ -59,7 +59,7 @@ import com.example.momentary.ui.navigation.NavKeys
 import com.example.momentary.ui.screen.home.component.AppDrawer
 import com.example.momentary.ui.screen.home.component.AppendErrorItem
 import com.example.momentary.ui.screen.home.component.EmptyState
-import com.example.momentary.ui.screen.home.component.ErrorState
+import com.example.momentary.ui.common.ErrorState
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
 import com.example.momentary.utils.toEpochMillis

@@ -65,6 +65,9 @@
     <!-- Detail Story Screen -->
     <string name="detail_story_title">Detail</string>
 
+    <!-- Maps Screen -->
+    <string name="maps_button_try_again">Coba lagi</string>
+
     <!-- Time Formatter -->
     <string name="time_format_now">baru saja</string>
     <string name="time_format_an_hour_ago">Sejam yang lalu</string>

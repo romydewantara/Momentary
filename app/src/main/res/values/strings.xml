@@ -65,6 +65,9 @@
     <!-- Detail Story Screen -->
     <string name="detail_story_title">Detail</string>
 
+    <!-- Maps Screen -->
+    <string name="maps_button_try_again">Try again</string>
+
     <!-- Time Formatter -->
     <string name="time_format_now">now</string>
     <string name="time_format_an_hour_ago">an hour ago</string>
