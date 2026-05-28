@@ -46,7 +46,6 @@
     <string name="home_empty_story">No stories yet</string>
     <string name="home_empty_story_description">Be the first to share your moment!</string>
     <string name="home_pull_to_refresh_hint">Pull down to refresh</string>
-    <string name="home_scroll_to_top">Scroll to Top</string>
 
     <!-- Add Story Screen -->
     <string name="add_story_title">New Story</string>
@@ -56,7 +55,8 @@
     <string name="add_story_add_image_source_camera">Camera</string>
     <string name="add_story_description_hint">Write a short story here…</string>
     <string name="add_story_description_visibility">Public</string>
-    <string name="add_story_description_location">Add location</string>
+    <string name="add_story_description_location">Include Location</string>
+    <string name="add_story_description_select_location">Tap to select location</string>
     <string name="add_story_unknown_location">Unknown location</string>
     <string name="add_story_button_use_location">Use this location</string>
     <string name="add_story_button_upload">Upload</string>

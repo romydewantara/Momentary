@@ -66,7 +66,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun resolveLocation(context: Context, story: Story) {
+    fun resolveLocation(story: Story) {
         val lat = story.lat
         val lon = story.lon
         val id = story.id

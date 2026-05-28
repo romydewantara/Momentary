@@ -25,10 +25,10 @@ import com.example.momentary.ui.screen.addstory.StoryLocation
 
 @Composable
 fun LocationSection(
-    modifier: Modifier = Modifier,
     location: StoryLocation?,
     onClick: () -> Unit,
     onDeleteLocation: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val hasLocation = location != null
     val interactionSource = remember { MutableInteractionSource() }
@@ -48,7 +48,7 @@ fun LocationSection(
         Text(
             modifier = Modifier.weight(1f),
             text = location?.address
-                ?: stringResource(R.string.add_story_description_location),
+                ?: stringResource(R.string.add_story_description_select_location),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyMedium,

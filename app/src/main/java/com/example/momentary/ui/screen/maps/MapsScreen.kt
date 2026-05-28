@@ -1,7 +1,6 @@
 package com.example.momentary.ui.screen.maps
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,7 +59,6 @@ import kotlin.math.abs
 fun MapsScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
-    onNavigateToDetail: (Story) -> Unit,
     viewModel: MapsViewModel = hiltViewModel()
 ) {
     val cameraPositionState = rememberCameraPositionState()
@@ -259,9 +257,6 @@ fun MapsScreen(
                                 modifier = Modifier
                                     .padding(16.dp)
                                     .fillMaxWidth()
-                                    .clickable {
-                                        onNavigateToDetail(story)
-                                    }
                             ) {
 
                                 Row(

@@ -20,6 +20,7 @@ fun AddStoryContent(
     modifier: Modifier,
     state: AddStoryUiState,
     name: String,
+    showLocationSection: Boolean,
     onImageClick: () -> Unit,
     onDescriptionChange: (String) -> Unit,
     onLocationClick: () -> Unit,
@@ -52,6 +53,7 @@ fun AddStoryContent(
                 onValueChange = onDescriptionChange,
                 name = name,
                 location = state.selectedLocation,
+                showLocationSection = showLocationSection,
                 onLocationClick = onLocationClick,
                 onDeleteLocation = onDeleteLocation
             )

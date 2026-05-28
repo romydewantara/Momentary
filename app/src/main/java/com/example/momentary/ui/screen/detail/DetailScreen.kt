@@ -56,7 +56,7 @@ fun DetailScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.resolveLocation(context, story)
+        viewModel.resolveLocation(story)
     }
 
     Scaffold(

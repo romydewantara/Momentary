@@ -172,16 +172,6 @@ fun NavGraph(
                 MapsScreen(
                     onBack = {
                         navController.safePopBackStack()
-                    },
-                    onNavigateToDetail = { story ->
-
-                        navController.currentBackStackEntry
-                            ?.savedStateHandle
-                            ?.set(NavKeys.SELECTED_STORY, story)
-
-                        navController.navigate(
-                            Screen.Detail.createRoute(story.id)
-                        )
                     }
                 )
             }

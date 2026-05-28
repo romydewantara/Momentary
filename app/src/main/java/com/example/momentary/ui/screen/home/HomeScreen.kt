@@ -54,12 +54,12 @@ import androidx.paging.compose.itemKey
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.CustomSnackBar
+import com.example.momentary.ui.common.ErrorState
 import com.example.momentary.ui.common.UiText
 import com.example.momentary.ui.navigation.NavKeys
 import com.example.momentary.ui.screen.home.component.AppDrawer
 import com.example.momentary.ui.screen.home.component.AppendErrorItem
 import com.example.momentary.ui.screen.home.component.EmptyState
-import com.example.momentary.ui.common.ErrorState
 import com.example.momentary.ui.screen.home.component.ShimmerItem
 import com.example.momentary.ui.screen.home.component.StoryItem
 import com.example.momentary.utils.toEpochMillis
@@ -128,6 +128,12 @@ fun HomeScreen(
             }
         } else if (refreshState is LoadState.NotLoading || refreshState is LoadState.Loading) {
             hasShownLoadStateError.value = false
+        }
+    }
+
+    LaunchedEffect(stories.itemSnapshotList.items) {
+        stories.itemSnapshotList.items.forEach { item ->
+            viewModel.resolveLocation(item.story)
         }
     }
 
