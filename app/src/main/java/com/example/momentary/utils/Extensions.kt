@@ -95,6 +95,7 @@ fun Context.getCityCountrySafe(
     } else {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                @Suppress("DEPRECATION")
                 val address = geocoder
                     .getFromLocation(lat, lon, 1)
                     ?.firstOrNull()

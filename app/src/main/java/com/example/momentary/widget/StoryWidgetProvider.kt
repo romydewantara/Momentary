@@ -19,6 +19,7 @@ class StoryWidgetProvider : AppWidgetProvider() {
             val intent = Intent(context, StoryWidgetService::class.java)
 
             val views = RemoteViews(context.packageName, R.layout.widget_story)
+            @Suppress("DEPRECATION")
             views.setRemoteAdapter(R.id.stackView, intent)
 
             appWidgetManager.updateAppWidget(id, views)

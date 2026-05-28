@@ -260,13 +260,12 @@ class MomentaryRepository @Inject constructor(
                 val story = entity.toStory()
 
                 val isOwnStory = story.name == sessionName
-                val isVerified = isOwnStory
 
                 StoryUiModel(
                     id = story.id,
                     story = story,
                     isOwnStory = isOwnStory,
-                    isVerified = isVerified,
+                    isVerified = isOwnStory,
                     createdAt = story.createdAt
                 )
             }
