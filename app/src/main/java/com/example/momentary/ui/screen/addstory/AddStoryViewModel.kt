@@ -58,6 +58,19 @@ class AddStoryViewModel @Inject constructor(
         }
     }
 
+    fun resolveAddress(latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            _state.update { it.copy(isResolvingAddress = true, pendingAddress = null) }
+            val address = geocoderHelper.getAddress(latitude, longitude)
+            _state.update {
+                it.copy(
+                    isResolvingAddress = false,
+                    pendingAddress = address
+                )
+            }
+        }
+    }
+
     fun selectLocation(
         latitude: Double,
         longitude: Double

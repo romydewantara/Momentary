@@ -46,6 +46,8 @@
     <string name="home_empty_story">Belum ada cerita</string>
     <string name="home_empty_story_description">Jadilah yang pertama berbagi momenmu!</string>
     <string name="home_pull_to_refresh_hint">Tarik ke bawah untuk menyegarkan</string>
+    <string name="home_read_more">Selengkapnya</string>
+    <string name="home_show_less">Sembunyikan</string>
 
     <!-- Add Story Screen -->
     <string name="add_story_title">Cerita Baru</string>

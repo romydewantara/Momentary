@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.momentary.R
 import com.example.momentary.ui.common.Avatar
@@ -132,11 +131,10 @@ fun StoryItem(
                         )
                     }
                 } else {
-                    Text(
+                    ExpandableText(
                         text = description,
                         style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        collapsedMaxLines = 2
                     )
                 }
             }
@@ -144,9 +142,10 @@ fun StoryItem(
             if (hasLocation) {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
+                ExpandableText(
                     text = description,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    collapsedMaxLines = 2
                 )
             }
 

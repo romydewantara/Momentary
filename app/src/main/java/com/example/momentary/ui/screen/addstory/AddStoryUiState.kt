@@ -9,6 +9,8 @@ data class StoryLocation(
 data class AddStoryUiState(
     val imageUri: String? = null,
     val description: String = "",
+    val pendingAddress: String? = null,
+    val isResolvingAddress: Boolean = false,
     val selectedLocation: StoryLocation? = null,
     val isLoading: Boolean = false,
     val isSuccess: Boolean = false

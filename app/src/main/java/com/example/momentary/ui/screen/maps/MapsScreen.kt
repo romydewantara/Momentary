@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -43,12 +42,11 @@ import coil3.compose.AsyncImage
 import com.example.momentary.R
 import com.example.momentary.data.model.Story
 import com.example.momentary.ui.common.ErrorState
+import com.example.momentary.utils.rememberMapProperties
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberUpdatedMarkerState
@@ -65,23 +63,8 @@ fun MapsScreen(
     var selectedStory by remember { mutableStateOf<Story?>(null) }
     val state by viewModel.state.collectAsStateWithLifecycle()
     var mapLoaded by remember { mutableStateOf(false) }
-    val resources = LocalResources.current
-    val indonesiaLatLng = remember {
-        LatLng(-2.5489, 118.0149)
-    }
-
-    val mapStyle = remember(resources) {
-        resources
-            .openRawResource(R.raw.map_style)
-            .bufferedReader()
-            .use { it.readText() }
-    }
-
-    val mapProperties = remember(mapStyle) {
-        MapProperties(
-            mapStyleOptions = MapStyleOptions(mapStyle)
-        )
-    }
+    val mapProperties = rememberMapProperties()
+    val indonesiaLatLng = remember { LatLng(-2.5489, 118.0149) }
 
     LaunchedEffect(state.stories, mapLoaded) {
 

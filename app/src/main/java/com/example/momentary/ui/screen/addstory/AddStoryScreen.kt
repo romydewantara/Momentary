@@ -214,9 +214,12 @@ fun AddStoryScreen(
             ) {
                 LocationPickerSheet(
                     selectedLocation = state.selectedLocation,
+                    pendingAddress = state.pendingAddress,
+                    isResolvingAddress = state.isResolvingAddress,
+                    onMarkerTapped = viewModel::resolveAddress,
                     onLocationSelected = { lat, lon ->
                         viewModel.selectLocation(lat, lon)
-                        hideLocationPickerBottomSheet()
+                        showLocationPicker = false
                     }
                 )
             }

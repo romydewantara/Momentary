@@ -46,6 +46,8 @@
     <string name="home_empty_story">No stories yet</string>
     <string name="home_empty_story_description">Be the first to share your moment!</string>
     <string name="home_pull_to_refresh_hint">Pull down to refresh</string>
+    <string name="home_read_more">Read more</string>
+    <string name="home_show_less">Show less</string>
 
     <!-- Add Story Screen -->
     <string name="add_story_title">New Story</string>
