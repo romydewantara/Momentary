@@ -18,6 +18,7 @@ import com.example.momentary.data.remote.mediator.StoryRemoteMediator
 import com.example.momentary.ui.common.ResultState
 import com.example.momentary.ui.common.UiText
 import com.example.momentary.ui.screen.home.model.StoryUiModel
+import com.example.momentary.utils.wrapEspressoIdlingResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -32,47 +33,50 @@ class MomentaryRepository @Inject constructor(
 ) {
 
     suspend fun login(email: String, password: String): ResultState<AuthResponse> {
-        return try {
-            val response = api.login(email = email, password = password)
-            response.loginResult?.let {
-                prefs.saveSession(
-                    token = it.token,
-                    name = it.name,
-                    email = email
-                )
+        return wrapEspressoIdlingResource {
+            try {
+                val response = api.login(email = email, password = password)
+                response.loginResult?.let {
+                    prefs.saveSession(
+                        token = it.token,
+                        name = it.name,
+                        email = email
+                    )
+                }
+
+                ResultState.Success(response)
+            } catch (e: retrofit2.HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+
+                val message = when {
+                    errorBody?.contains("must be a valid email", true) == true ->
+                        UiText.StringResource(R.string.error_must_valid_email)
+
+                    errorBody?.contains("User not found", true) == true ->
+                        UiText.StringResource(R.string.error_user_not_found)
+
+                    errorBody?.contains("Invalid password", true) == true ->
+                        UiText.StringResource(R.string.error_invalid_password)
+
+                    else ->
+                        UiText.StringResource(R.string.error_unknown)
+                }
+
+                ResultState.Error(message)
+            } catch (e: Exception) {
+                val errorMessage = e.message
+
+                val message = when {
+                    errorMessage?.contains("timeout", true) == true ->
+                        UiText.StringResource(R.string.error_timeout)
+
+                    else ->
+                        UiText.StringResource(R.string.error_network)
+                }
+                ResultState.Error(message)
             }
-
-            ResultState.Success(response)
-        } catch (e: retrofit2.HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-
-            val message = when {
-                errorBody?.contains("must be a valid email", true) == true ->
-                    UiText.StringResource(R.string.error_must_valid_email)
-
-                errorBody?.contains("User not found", true) == true ->
-                    UiText.StringResource(R.string.error_user_not_found)
-
-                errorBody?.contains("Invalid password", true) == true ->
-                    UiText.StringResource(R.string.error_invalid_password)
-
-                else ->
-                    UiText.StringResource(R.string.error_unknown)
-            }
-
-            ResultState.Error(message)
-        } catch (e: Exception) {
-            val errorMessage = e.message
-
-            val message = when {
-                errorMessage?.contains("timeout", true) == true ->
-                    UiText.StringResource(R.string.error_timeout)
-
-                else ->
-                    UiText.StringResource(R.string.error_network)
-            }
-            ResultState.Error(message)
         }
+
     }
 
     suspend fun register(

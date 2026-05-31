@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -70,6 +71,7 @@ fun ImageSourceBottomSheet(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 BottomSheetIconItem(
+                    modifier = Modifier.testTag("gallery_button"),
                     icon = R.drawable.ic_gallery,
                     text = stringResource(R.string.add_story_add_image_source_gallery),
                     onClick = {
@@ -93,6 +95,7 @@ fun ImageSourceBottomSheet(
 
 @Composable
 fun BottomSheetIconItem(
+    modifier: Modifier = Modifier,
     icon: Int,
     text: String,
     onClick: () -> Unit
@@ -106,7 +109,7 @@ fun BottomSheetIconItem(
         modifier = Modifier.padding(8.dp)
     ) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .size(64.dp)
                 .clip(CircleShape)
                 .background(Color.White)

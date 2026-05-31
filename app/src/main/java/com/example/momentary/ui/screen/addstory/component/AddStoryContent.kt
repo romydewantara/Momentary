@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.momentary.ui.screen.addstory.AddStoryUiState
 
@@ -38,6 +39,7 @@ fun AddStoryContent(
     ) {
         Column {
             ImagePicker(
+                modifier = Modifier.testTag("image_picker_box"),
                 imageUri = state.imageUri,
                 isLoading = state.isLoading,
                 onClick = {

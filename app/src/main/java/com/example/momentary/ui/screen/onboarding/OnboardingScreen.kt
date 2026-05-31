@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -77,7 +78,9 @@ fun OnboardingScreen(
 
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .testTag("onboarding_pager")
+                .fillMaxSize()
         ) { page ->
 
             val pageOffset by remember {
@@ -172,6 +175,7 @@ fun OnboardingScreen(
                 onFinish()
             },
             modifier = Modifier
+                .testTag("onboarding_start_button")
                 .align(Alignment.BottomCenter)
                 .graphicsLayer {
                     translationX = size.width * contentHorizontalOffset

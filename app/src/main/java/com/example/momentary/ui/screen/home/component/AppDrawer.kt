@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -59,6 +60,7 @@ fun AppDrawer(
             text = { Text(text = stringResource(R.string.drawer_logout_confirm_body)) },
             confirmButton = {
                 TextButton(
+                    modifier = Modifier.testTag("log_out"),
                     onClick = {
                         viewModel.confirmLogout()
                     }
@@ -121,6 +123,7 @@ fun AppDrawer(
             Spacer(modifier = Modifier.weight(1f))
 
             NavigationDrawerItem(
+                modifier = Modifier.testTag("logout_menu_item"),
                 label = {
                     Text(
                         text = stringResource(R.string.drawer_logout),

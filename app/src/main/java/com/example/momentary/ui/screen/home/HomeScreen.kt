@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -200,7 +201,10 @@ fun HomeScreen(
                         )
                     },
                     navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                        IconButton(
+                            modifier = Modifier.testTag("drawer_menu_button"),
+                            onClick = { scope.launch { drawerState.open() } }
+                        ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_menu),
                                 contentDescription = stringResource(R.string.cd_button_menu)
@@ -208,7 +212,10 @@ fun HomeScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = onNavigateToAddStory) {
+                        IconButton(
+                            modifier = Modifier.testTag("add_story"),
+                            onClick = onNavigateToAddStory
+                        ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_add),
                                 contentDescription = stringResource(R.string.cd_story)
@@ -274,7 +281,9 @@ fun HomeScreen(
                                 else -> {
                                     LazyColumn(
                                         state = listState,
-                                        modifier = Modifier.fillMaxSize()
+                                        modifier = Modifier
+                                            .testTag("stories_list")
+                                            .fillMaxSize()
                                     ) {
                                         items(
                                             count = stories.itemCount,

@@ -17,13 +17,14 @@ import com.example.momentary.ui.screen.addstory.AddStoryUiState
 
 @Composable
 fun UploadButton(
+    modifier: Modifier = Modifier,
     state: AddStoryUiState,
     onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
         enabled = state.isValid && !state.isLoading,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .navigationBarsPadding()
             .padding(16.dp)

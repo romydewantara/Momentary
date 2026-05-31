@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
@@ -119,6 +120,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             CustomView(
+                modifier = Modifier.testTag("email_input"),
                 value = state.email,
                 onValueChange = viewModel::onEmailChange,
                 label = stringResource(R.string.text_field_email),
@@ -132,6 +134,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             CustomView(
+                modifier = Modifier.testTag("password_input"),
                 value = state.password,
                 onValueChange = viewModel::onPasswordChange,
                 label = stringResource(R.string.text_field_password),
@@ -151,6 +154,7 @@ fun LoginScreen(
                 },
                 enabled = state.isValid && !state.isLoading,
                 modifier = Modifier
+                    .testTag("login_button")
                     .fillMaxWidth()
                     .height(48.dp)
             ) {
