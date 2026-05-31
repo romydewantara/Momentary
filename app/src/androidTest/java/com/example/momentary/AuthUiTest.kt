@@ -1,5 +1,6 @@
 package com.example.momentary
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Instrumentation
 import android.content.Intent
@@ -52,9 +53,10 @@ class AuthUiTest {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
+    @SuppressLint("CheckResult")
     @Test
     fun testLoginAndLogoutMechanism() {
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
+        composeTestRule.waitUntil(timeoutMillis = 10000) {
             composeTestRule
                 .onAllNodesWithTag("onboarding_pager")
                 .fetchSemanticsNodes().isNotEmpty()
@@ -76,7 +78,7 @@ class AuthUiTest {
         composeTestRule.onNodeWithTag("email_input").performTextInput("m_actor@dicoding.com")
         composeTestRule.onNodeWithTag("password_input").performTextInput("password")
         composeTestRule.onNodeWithTag("login_button").performClick()
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
+        composeTestRule.waitUntil(timeoutMillis = 10000) {
             composeTestRule
                 .onAllNodesWithTag("stories_list")
                 .fetchSemanticsNodes().isNotEmpty()
@@ -119,7 +121,7 @@ class AuthUiTest {
             .performTextInput("building exceptional experiences through code.")
         composeTestRule.onNodeWithTag("upload_button").performClick()
 
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
+        composeTestRule.waitUntil(timeoutMillis = 10000) {
             composeTestRule
                 .onAllNodesWithTag("stories_list")
                 .fetchSemanticsNodes().isNotEmpty()

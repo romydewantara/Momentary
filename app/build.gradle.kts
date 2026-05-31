@@ -18,6 +18,7 @@ android {
     defaultConfig {
         applicationId = "com.example.momentary"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 1
         versionName = "1.1.0"
@@ -62,6 +63,9 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.animation)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.espresso.idling.resource)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Icons, Navigation
     implementation(libs.androidx.navigation.compose)
@@ -115,35 +119,23 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // Unit Tests  (src/test/)
+    testImplementation(libs.androidx.paging.common.ktx)
+    testImplementation(libs.androidx.core.testing)
     testImplementation(libs.junit)
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
-    testImplementation("org.mockito:mockito-core:5.11.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
-    // Paging Testing
-    testImplementation("androidx.paging:paging-common-ktx:3.3.6")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
 
-    // Hilt testing support
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.1")
-    kspAndroidTest("com.google.dagger:hilt-compiler:2.57.1")
-
-    implementation("androidx.test.espresso:espresso-idling-resource:3.6.1")
-
-    // TestDispatcher
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-
-    // Instrumented / UI Tests  (src/androidTest/)
+    // UI Tests
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.7")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.contrib)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
