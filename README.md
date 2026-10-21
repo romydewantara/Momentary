@@ -10,7 +10,7 @@
 Momentary is a simple Android application for sharing visual stories. Users can register, log in, browse stories from other users, and upload their own stories with images.  
 This project was developed to fulfill the graduation requirements for the Belajar Pengembangan Aplikasi Android Intermediate course on Dicoding.
 
-Developer: Romy Dewantara
+Developed by: Romy Dewantara
 
 ## Features
 
